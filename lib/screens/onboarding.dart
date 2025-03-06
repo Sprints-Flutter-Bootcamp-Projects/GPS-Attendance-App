@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gps_attendance/screens/login_screen.dart';
+import 'package:gps_attendance/screens/onboarding1.dart';
+import 'package:gps_attendance/screens/onboarding2.dart';
+import 'package:gps_attendance/screens/onboarding3.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   @override
@@ -23,21 +27,20 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               });
             },
             children: [
-              
-              buildPage(
-                image: 'assets/onboarding1.png',
+              OnBoarding1(
+                image: 'assets/images/onboarding1.png',
                 title: 'Smart Attendance Tracking',
                 description: 'Simplify your workplace attendance Stay connected, stay productive',
               ),
-              buildPage(
-                image: 'assets/onboarding2.png',
-                title: 'Explore',
-                description: 'Find new and exciting functionalities.',
+              OnBoarding2(
+                image: 'assets/images/onboarding2.png',
+                title: 'Key Features',
+                // description: 'Find new and exciting functionalities.',
               ),
-              buildPage(
-                image: 'assets/onboarding3.png',
-                title: 'Get Started',
-                description: 'Let\'s dive right in and enjoy the experience!',
+              OnBoarding3(
+                image: 'assets/images/onboarding3.png',
+                title: 'Welcome to TrackSync',
+                // description: 'Let\'s dive right in and enjoy the experience!',
               ),
             ],
           ),
@@ -45,7 +48,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           Positioned(
             top: 350,
             left: 0,
-            right: 0,
+            right: 400,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(3, (index) {
@@ -62,17 +65,26 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               }),
             ),
           ),
-          // Skip or Next button
+          //  Next and get started button
           Positioned(
+            width: 450,
+            height: 50,
             bottom: 20,
             right: 20,
             child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                        backgroundColor: Color.fromARGB(255, 26, 150, 177), // Button color
+                        padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+              ),
               onPressed: () {
                 if (_currentPage == 2) {
                   // Navigate to login screen when onboarding is done
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()),
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
                   );
                 } else {
                   _pageController.nextPage(
@@ -81,47 +93,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   );
                 }
               },
-              child: Text(_currentPage == 2 ? 'Get Started' : 'Next'),
+              child: Text(_currentPage == 2 ? 'Get Started' : 'Next',
+              style: TextStyle(fontSize: 18, color: Colors.white)),
             ),
           ),
         ],
       ),
     );
   }
-
-  Widget buildPage({ required String image, required String title, required String description}) {
-    return Container(
-      color: Colors.white,
-      child: Column(
-        children: [
-          Image.asset(image),
-          SizedBox(height: 20),
-          Text(
-            title,
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
-          ),
-          SizedBox(height: 10),
-          Text(
-            description,
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 16, color: Colors.white70),
-          ),
-        ],
-      ),
-    );
-  }
 }
 
-class HomeScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text(
-          'Welcome to the Home Screen!',
-          style: TextStyle(fontSize: 24),
-        ),
-      ),
-    );
-  }
-}
+
