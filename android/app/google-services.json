@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "453907172022",
+    "project_id": "gps-attendance-25",
+    "storage_bucket": "gps-attendance-25.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:453907172022:android:4fa716be7a61321d207417",
+        "android_client_info": {
+          "package_name": "com.example.gps_attendance"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXKpNulqZVzgvHIPpB3ZdbxbxUUxnSTrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
