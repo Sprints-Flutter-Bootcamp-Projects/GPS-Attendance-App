@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gps_attendance/homepage.dart';
+import 'package:gps_attendance/screens/splash.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -14,9 +15,10 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: MyHomePage(
-        title: 'Demo',
-      ),
+      // home: MyHomePage(
+      //   title: 'Demo',
+      // ),
+      home: SplashScreen(),
     );
   }
 }
