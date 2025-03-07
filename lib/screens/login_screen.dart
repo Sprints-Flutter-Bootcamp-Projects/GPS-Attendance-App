@@ -1,70 +1,205 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+
 import 'package:gps_attendance/screens/signup_screen.dart';
+import 'package:gps_attendance/widgets/textformfield.dart';
+
 import '../services/auth_service.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
-  LoginScreen({super.key});
+  bool hiddenPassword = true;
+  final _formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     final authService = AuthService();
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Login'),
+        backgroundColor: Colors.white,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextField(
-              controller: _emailController,
-              decoration: const InputDecoration(labelText: 'Email'),
-            ),
-            TextField(
-              controller: _passwordController,
-              decoration: const InputDecoration(labelText: 'Password'),
-              obscureText: true,
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () async {
-                await authService.signIn(
-                  _emailController.text,
-                  _passwordController.text,
-                );
-                if (context.mounted) {
-                  final user = authService.auth.currentUser;
-                  if (user != null) {
-                    final role = await authService.getUserRole(user.uid);
-                    if (role == 'admin') {
-                      Navigator.pushReplacementNamed(context, '/admin');
-                    } else if (role == 'moderator') {
-                      Navigator.pushReplacementNamed(context, '/moderator');
-                    } else {
-                      Navigator.pushReplacementNamed(context, '/user');
-                    }
+        padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+        child: Form(
+          key: _formkey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Positioned(
+                top: 10,
+                child: Center(
+                  child: Image.asset(
+                    'assets/images/image.png',
+                    width: 248,
+                    height: 248,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                child: Text(
+                  'Welcome!',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              // email field
+              CustomTextFormField(
+                labelText: 'Email',
+                controller: _emailController,
+                validator: (value) {
+                  //checking the validation of an email
+                  if (value != null && value.isEmpty) {
+                    return "email can't be empty";
+                  } else if (value != null && !value.contains('@')) {
+                    //must contain @ character
+                    print("email must have");
+                    SnackBar snackBar = SnackBar(
+                      content: Text("invalid syntax"),
+                      duration: Duration(seconds: 2),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   }
-                }
-              },
-              child: const Text('Sign In'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SignUpScreen()),
-                );
-              },
-              child: const Text('Don\'t have an account? Sign Up'),
-            ),
-          ],
+                  return null;
+                },
+              ),
+              SizedBox(height: 20),
+              // password field
+              TextFormField(
+                style: TextStyle(color: Colors.black),
+                controller: _passwordController,
+                obscureText: hiddenPassword,
+                decoration: InputDecoration(
+                    labelText: 'Password',
+                    floatingLabelStyle: TextStyle(
+                      color:
+                          Color(0xFF1A96B1), // Color of the label when focused
+                      fontSize: 14, // Optional: Adjust font size
+                    ),
+                    border: OutlineInputBorder(
+                      // Adds a border around the TextField
+                      borderRadius:
+                          BorderRadius.circular(8.0), // Rounded corners
+                      borderSide: const BorderSide(
+                        color: Color(0xFFC5C6CC), // Border color
+                        width: 2.0, // Border width
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: BorderSide(
+                        color: Color(0xFF1A96B1), // Border color when focused
+                        width: 2.0,
+                      ),
+                    ),
+                    suffixIcon: IconButton(
+                        onPressed: () {
+                          togglePassword(); //the button of password visibility
+                        },
+                        icon: Icon(hiddenPassword
+                            ? Icons.visibility
+                            : Icons.visibility_off))),
+                validator: (value) {
+                  //checking the validation of the password
+                  if (value != null && value.isEmpty) {
+                    return "password is empty";
+                  } else if (value != null && value.length < 6) {
+                    SnackBar snackBar = SnackBar(
+                      content: Text('Wrong password'),
+                      duration: Duration(seconds: 2),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 10),
+              TextButton(
+                  style: ButtonStyle(
+                      backgroundColor: WidgetStateColor.transparent),
+                  onPressed: () {},
+                  child: Text(
+                    'Forgot Password?',
+                    style: TextStyle(
+                        color: Color(0xFF1A96B1), fontWeight: FontWeight.bold),
+                  )),
+              SizedBox(height: 10),
+              Positioned(
+                width: 450,
+                height: 50,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFF1A96B1), // Button color
+                    padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  onPressed: () {
+                    if (_formkey.currentState!.validate()) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SignUpScreen()),
+                      );
+                    } else {
+                      SnackBar snackBar = SnackBar(
+                        //snackbar showing if the data is valid or not
+                        content: Text("invalid email or password"),
+                        duration: Duration(seconds: 2),
+                        action: SnackBarAction(label: "", onPressed: () {}),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    }
+                  },
+                  child: const Text(
+                    'Login',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+              SizedBox(
+                child: Row(
+                  children: [
+                    Text('Not a Member?',style: TextStyle(
+                      color: Color(0xFF71727A)
+                    ),),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => SignUpScreen()),
+                        );
+                      },
+                      child: const Text('Register Now', style: TextStyle(
+                        color: Color(0xFF1A96B1),
+                        fontWeight: FontWeight.bold,
+                      ),),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  togglePassword() {
+    //hidding password function
+    hiddenPassword = !hiddenPassword;
+    setState(() {});
   }
 }
