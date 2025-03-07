@@ -5,7 +5,7 @@ import 'package:gps_attendance/features/authentication/screens/account_type.dart
 
 import 'package:gps_attendance/features/authentication/screens/signup_screen.dart';
 import 'package:gps_attendance/widgets/nice_button.dart';
-import 'package:gps_attendance/widgets/textformfield.dart';
+import 'package:gps_attendance/widgets/text_form_field.dart';
 
 import '../../../services/auth_service.dart';
 
@@ -59,25 +59,25 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               // email field
-              CustomTextFormField(
-                labelText: 'Email',
-                controller: _emailController,
-                validator: (value) {
-                  //checking the validation of an email
-                  if (value != null && value.isEmpty) {
-                    return "email can't be empty";
-                  } else if (value != null && !value.contains('@')) {
-                    //must contain @ character
-                    print("email must have");
-                    SnackBar snackBar = SnackBar(
-                      content: Text("invalid syntax"),
-                      duration: Duration(seconds: 2),
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  }
-                  return null;
-                },
-              ),
+              // CustomTextFormField(
+              //   labelText: 'Email',
+              //   controller: _emailController,
+              //   validator: (value) {
+              //     //checking the validation of an email
+              //     if (value != null && value.isEmpty) {
+              //       return "email can't be empty";
+              //     } else if (value != null && !value.contains('@')) {
+              //       //must contain @ character
+              //       print("email must have");
+              //       SnackBar snackBar = SnackBar(
+              //         content: Text("invalid syntax"),
+              //         duration: Duration(seconds: 2),
+              //       );
+              //       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              //     }
+              //     return null;
+              //   },
+              // ),
               SizedBox(height: 20),
               // password field
               TextFormField(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget accountCard({required bool employee}) {
+Widget accountCard({required bool employee, required VoidCallback onTap}) {
   // Define properties based on account type
   final cardColor = employee ? Color.fromARGB(255, 26, 150, 177) : Colors.white;
 
@@ -56,7 +56,7 @@ Widget accountCard({required bool employee}) {
                   BorderSide(color: textColor),
                 ), // Set outline color to white
               ),
-              onPressed: () {},
+              onPressed: onTap,
               child: Text(buttonText, style: TextStyle(color: textColor)),
             ),
           ],

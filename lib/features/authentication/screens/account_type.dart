@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gps_attendance/features/authentication/screens/signup_screen.dart';
 import 'package:gps_attendance/features/authentication/widgets/account_card.dart';
 import 'package:gps_attendance/widgets/appbar.dart';
 
@@ -26,9 +27,25 @@ class AccountsPage extends StatelessWidget {
                   style: TextStyle(fontSize: 12, color: Color(0xFF71727A)),
                 ),
                 const SizedBox(height: 10),
-                accountCard(employee: true),
+                accountCard(
+                  employee: true,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SignUpScreen()),
+                    );
+                  },
+                ),
                 const SizedBox(height: 10),
-                accountCard(employee: false)
+                accountCard(
+                  employee: false,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SignUpScreen()),
+                    );
+                  },
+                )
               ],
             )
           ],
