@@ -59,61 +59,33 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               // email field
-              // CustomTextFormField(
-              //   labelText: 'Email',
-              //   controller: _emailController,
-              //   validator: (value) {
-              //     //checking the validation of an email
-              //     if (value != null && value.isEmpty) {
-              //       return "email can't be empty";
-              //     } else if (value != null && !value.contains('@')) {
-              //       //must contain @ character
-              //       print("email must have");
-              //       SnackBar snackBar = SnackBar(
-              //         content: Text("invalid syntax"),
-              //         duration: Duration(seconds: 2),
-              //       );
-              //       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              //     }
-              //     return null;
-              //   },
-              // ),
-              SizedBox(height: 20),
+              CustomTextField(
+                label: 'Email',
+                labelIcon: Icons.email,
+                controller: _emailController,
+                validator: (value) {
+                  //checking the validation of an email
+                  if (value != null && value.isEmpty) {
+                    return "email can't be empty";
+                  } else if (value != null && !value.contains('@')) {
+                    //must contain @ character
+                    print("email must have");
+                    SnackBar snackBar = SnackBar(
+                      content: Text("invalid syntax"),
+                      duration: Duration(seconds: 2),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  }
+                  return null;
+                },
+              ),
               // password field
-              TextFormField(
-                style: TextStyle(color: Colors.black),
+              CustomTextField(
+                label: 'Password',
+                labelIcon: Icons.lock,
                 controller: _passwordController,
-                obscureText: hiddenPassword,
-                decoration: InputDecoration(
-                    labelText: 'Password',
-                    floatingLabelStyle: TextStyle(
-                      color:
-                          Color(0xFF1A96B1), // Color of the label when focused
-                      fontSize: 14, // Optional: Adjust font size
-                    ),
-                    border: OutlineInputBorder(
-                      // Adds a border around the TextField
-                      borderRadius:
-                          BorderRadius.circular(8.0), // Rounded corners
-                      borderSide: const BorderSide(
-                        color: Color(0xFFC5C6CC), // Border color
-                        width: 2.0, // Border width
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                      borderSide: BorderSide(
-                        color: Color(0xFF1A96B1), // Border color when focused
-                        width: 2.0,
-                      ),
-                    ),
-                    suffixIcon: IconButton(
-                        onPressed: () {
-                          togglePassword(); //the button of password visibility
-                        },
-                        icon: Icon(hiddenPassword
-                            ? Icons.visibility
-                            : Icons.visibility_off))),
+                obsecureText: true,
+                isPassword: true,
                 validator: (value) {
                   //checking the validation of the password
                   if (value != null && value.isEmpty) {
@@ -128,6 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   return null;
                 },
               ),
+
               TextButton(
                   style: ButtonStyle(
                       backgroundColor: WidgetStateColor.transparent),
