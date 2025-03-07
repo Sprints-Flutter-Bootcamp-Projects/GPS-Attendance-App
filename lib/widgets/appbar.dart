@@ -1,38 +1,34 @@
-// import 'package:flutter/cupertino.dart';
-// import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
-// class CupertinoAppBarExample extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return CupertinoPageScaffold(
-//       navigationBar: CupertinoNavigationBar(
-//         backgroundColor: Color.fromARGB(255, 26, 150, 177), // Custom background color
-//         trailing: GestureDetector(
-//           onTap: () {
-//             print("Trailing action triggered");
-//           },
-//           child: Icon(CupertinoIcons.settings), // Add icons to navigation bar
-//         ),
-//       ),
-//       child: ,
-//     );
-//   }
-// }
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final String title;
+  final VoidCallback? onBack;
 
+  const CustomAppBar({
+    Key? key,
+    required this.title,
+    this.onBack,
+  }) : super(key: key);
 
-//  appBar: CupertinoNavigationBar(
-//         backgroundColor: Color.fromARGB(255, 26, 150, 177),
-//         trailing: Row(
-//             mainAxisAlignment: MainAxisAlignment.end,
-//             children: [
-//               SizedBox(
-//                 width: 5,
-//                 height: 5,
-//                 child: Icon(CupertinoIcons.wifi)),
-//               SizedBox(
-//                 width: 5,
-//                 height: 5,
-//                 child: Icon(CupertinoIcons.battery_full))
-//             ],
-//           ),
-//       ),
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      iconTheme: IconThemeData(color: Colors.teal[900]),
+      backgroundColor: Colors.white,
+      shadowColor: Colors.grey[100],
+      elevation: 3,
+      centerTitle: true,
+      leading: IconButton(
+        onPressed: onBack ?? () => Navigator.pop(context),
+        icon: const Icon(Icons.arrow_back_ios),
+      ),
+      title: Text(
+        title,
+        style: TextStyle(fontSize: 18, color: Colors.black),
+      ),
+    );
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}
