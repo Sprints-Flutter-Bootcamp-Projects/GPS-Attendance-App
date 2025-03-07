@@ -1,10 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
-import 'package:gps_attendance/screens/signup_screen.dart';
+import 'package:gps_attendance/features/authentication/screens/signup_screen.dart';
 import 'package:gps_attendance/widgets/textformfield.dart';
 
-import '../services/auth_service.dart';
+import '../../../services/auth_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -172,20 +172,25 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 child: Row(
                   children: [
-                    Text('Not a Member?',style: TextStyle(
-                      color: Color(0xFF71727A)
-                    ),),
+                    Text(
+                      'Not a Member?',
+                      style: TextStyle(color: Color(0xFF71727A)),
+                    ),
                     TextButton(
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => SignUpScreen()),
+                          MaterialPageRoute(
+                              builder: (context) => SignUpScreen()),
                         );
                       },
-                      child: const Text('Register Now', style: TextStyle(
-                        color: Color(0xFF1A96B1),
-                        fontWeight: FontWeight.bold,
-                      ),),
+                      child: const Text(
+                        'Register Now',
+                        style: TextStyle(
+                          color: Color(0xFF1A96B1),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ],
                 ),

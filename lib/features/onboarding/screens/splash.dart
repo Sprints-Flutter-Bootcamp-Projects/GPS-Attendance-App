@@ -2,8 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gps_attendance/screens/onboarding.dart';
-
+import 'package:gps_attendance/features/onboarding/screens/onboarding.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -12,11 +11,10 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
-
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _fadeAnimation;
-
 
   @override
   void initState() {
@@ -35,7 +33,8 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     Timer(Duration(seconds: 3), () {
       Navigator.of(context).pushReplacement(
         PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) => OnBoardingScreen(),
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              OnBoardingScreen(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(opacity: animation, child: child);
           },
@@ -44,28 +43,25 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     });
   }
 
-
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 26, 150, 177),
-      body:
-      Center(
-        child: FadeTransition(
-          opacity: _fadeAnimation,
-          child: SizedBox(
-            child: Image.asset('assets/images/image.png'),
-            width: 200,
-            height: 200,),
-        ),
-      )
-    ) ;
+        backgroundColor: Color.fromARGB(255, 26, 150, 177),
+        body: Center(
+          child: FadeTransition(
+            opacity: _fadeAnimation,
+            child: SizedBox(
+              child: Image.asset('assets/images/image.png'),
+              width: 200,
+              height: 200,
+            ),
+          ),
+        ));
   }
 }
