@@ -1,7 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:gps_attendance/core/utils/app_colors.dart';
 
 import 'package:gps_attendance/features/authentication/screens/signup_screen.dart';
+import 'package:gps_attendance/widgets/nice_button.dart';
 import 'package:gps_attendance/widgets/textformfield.dart';
 
 import '../../../services/auth_service.dart';
@@ -125,29 +127,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   return null;
                 },
               ),
-              SizedBox(height: 10),
               TextButton(
                   style: ButtonStyle(
                       backgroundColor: WidgetStateColor.transparent),
                   onPressed: () {},
                   child: Text(
-                    'Forgot Password?',
+                    'Forgot Password? Click here',
                     style: TextStyle(
-                        color: Color(0xFF1A96B1), fontWeight: FontWeight.bold),
+                        color: AppColors.primaryColor,
+                        fontWeight: FontWeight.bold),
                   )),
-              SizedBox(height: 10),
-              Positioned(
-                width: 450,
-                height: 50,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFF1A96B1), // Button color
-                    padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  onPressed: () {
+              niceButton(
+                  title: 'Login',
+                  onTap: () {
                     if (_formkey.currentState!.validate()) {
                       Navigator.push(
                         context,
@@ -162,15 +154,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       );
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     }
-                  },
-                  child: const Text(
-                    'Login',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ),
+                  }),
               SizedBox(
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       'Not a Member?',
@@ -184,10 +171,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               builder: (context) => SignUpScreen()),
                         );
                       },
-                      child: const Text(
+                      child: Text(
                         'Register Now',
                         style: TextStyle(
-                          color: Color(0xFF1A96B1),
+                          color: AppColors.primaryColor,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

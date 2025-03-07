@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 Widget niceButton({required String title, required VoidCallback onTap}) =>
     Container(
-      padding: const EdgeInsets.all(12.0),
-      margin: const EdgeInsets.only(bottom: 12.0, left: 12.0, right: 12.0),
+      padding: const EdgeInsets.all(0.0),
+      // margin: const EdgeInsets.only(bottom: 12.0, left: 12.0, right: 12.0),
       child: SizedBox(
         width: double.infinity,
         child: ElevatedButton(
