@@ -25,7 +25,7 @@ class _OnBoarding3State extends State<OnBoarding3> {
     return Container(
       color: Colors.white,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
             width: screenWidth,
@@ -34,7 +34,6 @@ class _OnBoarding3State extends State<OnBoarding3> {
             fit: BoxFit.cover,)),
           SizedBox(
           height: 20,
-          // width: MediaQuery.of(context).size.width
           ),
           Text(
             widget.title,
