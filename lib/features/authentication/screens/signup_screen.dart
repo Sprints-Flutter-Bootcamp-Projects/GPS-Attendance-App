@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gps_attendance/core/utils/app_colors.dart';
+import 'package:gps_attendance/features/authentication/screens/company&department.dart';
 import 'package:gps_attendance/features/authentication/widgets/page_desc.dart';
 import 'package:gps_attendance/widgets/appbar.dart';
 import 'package:gps_attendance/widgets/nice_button.dart';
@@ -27,6 +28,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     final authService = AuthService();
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: CustomAppBar(title: "Register"),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -125,9 +127,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         _passwordController.text,
                         'user', // Default role for new users
                       );
-                      if (context.mounted) {
-                        Navigator.pop(context); // Go back to the login screen
-                      }
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CompleteDetailsPage()),
+                        );
+                      // if (context.mounted) {
+                      //   Navigator.pop(context); // Go back to the login screen
+                      // }
                     })
                 : Text(
                     "Accept terms and conditions to sign up",

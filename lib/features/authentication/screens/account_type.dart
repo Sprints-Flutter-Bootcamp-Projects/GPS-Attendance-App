@@ -9,6 +9,7 @@ class AccountsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: CustomAppBar(title: "Register"),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -20,7 +21,7 @@ class AccountsPage extends StatelessWidget {
               children: [
                 Text(
                   "Account Type",
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
                 ),
                 Text(
                   "Choose the type of account you want to setup",

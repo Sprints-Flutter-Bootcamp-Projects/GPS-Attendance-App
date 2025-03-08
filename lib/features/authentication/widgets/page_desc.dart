@@ -20,7 +20,7 @@ class PageDesc extends StatelessWidget {
         children: [
           Text(
             title,
-            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
+            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: Colors.black),
           ),
           const SizedBox(height: 4),
           Text(

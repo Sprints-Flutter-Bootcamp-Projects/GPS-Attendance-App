@@ -4,7 +4,7 @@ import 'package:gps_attendance/core/utils/app_colors.dart';
 class CustomTextField extends StatefulWidget {
   final TextEditingController controller;
   final String label;
-  final IconData labelIcon;
+  final IconData? labelIcon;
   final String? Function(String?)? validator;
   final bool isPassword;
   bool obsecureText;
@@ -13,7 +13,7 @@ class CustomTextField extends StatefulWidget {
       {super.key,
       required this.controller,
       required this.label,
-      required this.labelIcon,
+      this.labelIcon,
       this.obsecureText = false,
       this.validator,
       this.isPassword = false});
@@ -72,6 +72,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
         ),
         obscureText: widget.obsecureText,
         validator: widget.validator,
+        style: TextStyle(
+          color: Colors.black
+        ),
       ),
     );
   }

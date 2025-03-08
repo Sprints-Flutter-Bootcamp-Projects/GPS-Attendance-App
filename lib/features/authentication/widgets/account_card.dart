@@ -7,7 +7,7 @@ Widget accountCard({required bool employee, required VoidCallback onTap}) {
   final textColor = employee ? Colors.white : Color.fromARGB(255, 26, 150, 177);
 
   final icon = employee
-      ? const Icon(Icons.person_2_rounded, size: 150, color: Colors.white)
+      ? const Icon(Icons.person, size: 150, color: Colors.white)
       : Icon(Icons.business_center_rounded, size: 150, color: textColor);
 
   final title = employee ? "Employee Account" : "Manager Account";
