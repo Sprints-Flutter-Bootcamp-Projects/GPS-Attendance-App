@@ -44,6 +44,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 OnBoarding3(
                   image: 'assets/images/onboarding3.png',
                   title: 'Welcome to TrackSync',
+                  description: 'Your Workforce Management Solution'
                 ),
               ],
             ),
