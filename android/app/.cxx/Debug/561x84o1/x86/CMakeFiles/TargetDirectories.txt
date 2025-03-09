@@ -1,0 +1,2 @@
+D:/Sprints/GPS-Attendance-App/android/app/.cxx/Debug/561x84o1/x86/CMakeFiles/edit_cache.dir
+D:/Sprints/GPS-Attendance-App/android/app/.cxx/Debug/561x84o1/x86/CMakeFiles/rebuild_cache.dir
