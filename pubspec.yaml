@@ -17,8 +17,13 @@ dependencies:
   flutter_bloc: ^9.0.0
   geolocator: ^13.0.2
   google_maps_flutter: ^2.10.0
+  get_it: ^8.0.3
+  font_awesome_flutter: ^10.8.0
   flutter:
     sdk: flutter
+  firebase_database: ^11.3.4
+  syncfusion_flutter_calendar: ^28.2.9
+  intl: ^0.19.0
 
 dev_dependencies:
   flutter_lints: ^5.0.0
@@ -31,6 +36,7 @@ flutter:
   assets:
     - assets/
     - assets/images/
+    - assets/fonts/
     - assets/translations/en.json
     - assets/translations/ar.json
     # - data_source/gov_data.json
@@ -43,3 +49,44 @@ flutter:
 #   - family: Bitter
 #     fonts:
 #       - asset: fonts/Bitter/Bitter-Regular.ttf
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/inter/Inter-VariableFont_opsz,wght.ttf
+          style: normal
+
+        - asset: assets/fonts/inter/static/Inter_18pt-Black.ttf
+          weight: 900
+        - asset: assets/fonts/inter/static/Inter_18pt-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/inter/static/Inter_18pt-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/inter/static/Inter_18pt-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/inter/static/Inter_18pt-Medium.ttf
+          weight: 500
+
+        - asset: assets/fonts/inter/static/Inter_24pt-Black.ttf
+          weight: 900
+        - asset: assets/fonts/inter/static/Inter_24pt-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/inter/static/Inter_24pt-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/inter/static/Inter_24pt-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/inter/static/Inter_24pt-Medium.ttf
+          weight: 500
+
+        - asset: assets/fonts/inter/static/Inter_28pt-Black.ttf
+          weight: 900
+        - asset: assets/fonts/inter/static/Inter_28pt-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/inter/static/Inter_28pt-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/inter/static/Inter_28pt-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/inter/static/Inter_28pt-Medium.ttf
+          weight: 500
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/to/font-from-package
