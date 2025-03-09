@@ -1,13 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:gps_attendance/core/utils/app_colors.dart';
-import 'package:gps_attendance/features/authentication/screens/account_type.dart';
+import 'package:gps_attendance/features/authentication/presentation/screens/account_type.dart';
 
-import 'package:gps_attendance/features/authentication/screens/signup_screen.dart';
+import 'package:gps_attendance/features/authentication/presentation/screens/signup_screen.dart';
 import 'package:gps_attendance/widgets/nice_button.dart';
 import 'package:gps_attendance/widgets/text_form_field.dart';
 
-import '../../../services/auth_service.dart';
+import '../../../../services/auth_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

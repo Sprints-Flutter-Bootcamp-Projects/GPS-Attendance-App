@@ -21,7 +21,11 @@ class AuthService {
     }
   }
 
-  Future<void> signUp(String email, String password, String role) async {
+  Future<User?> signUp(
+      {required String email,
+      required String password,
+      required role,
+      required String fullName}) async {
     try {
       UserCredential userCredential = await auth.createUserWithEmailAndPassword(
         email: email,
@@ -30,6 +34,7 @@ class AuthService {
 
       // Save user role in Firestore
       await _firestore.collection('users').doc(userCredential.user!.uid).set({
+        'fullName': fullName,
         'email': email,
         'role': role, // 'user', 'moderator', or 'admin'
         'workZoneId': 'workZone1',
@@ -37,8 +42,27 @@ class AuthService {
       });
 
       print('User signed up: ${userCredential.user!.uid}');
+      return userCredential.user;
     } on FirebaseAuthException catch (e) {
       print('Error: ${e.message}');
+    }
+  }
+
+  Future<void> saveUserDetails({
+    required String company,
+    required String department,
+    required String title,
+    required String? imageUrl,
+  }) async {
+    final user = auth.currentUser;
+    if (user != null) {
+      await _firestore.collection('users').doc(user.uid).set({
+        'company': company,
+        'department': department,
+        'title': title,
+        'imageUrl': imageUrl ?? '',
+        'email': user.email,
+      }, SetOptions(merge: true));
     }
   }
 

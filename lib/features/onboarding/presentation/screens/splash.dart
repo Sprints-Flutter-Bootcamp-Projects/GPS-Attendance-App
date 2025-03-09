@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gps_attendance/features/onboarding/screens/onboarding.dart';
+import 'package:gps_attendance/features/onboarding/presentation/screens/onboarding.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

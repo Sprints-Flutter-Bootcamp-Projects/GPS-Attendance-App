@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gps_attendance/features/onboarding/widgets/horizontal_card.dart';
+import 'package:gps_attendance/features/onboarding/presentation/widgets/horizontal_card.dart';
 
 class OnBoarding2 extends StatefulWidget {
   final String image;

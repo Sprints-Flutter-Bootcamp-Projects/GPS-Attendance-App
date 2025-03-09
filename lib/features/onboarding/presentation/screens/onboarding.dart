@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gps_attendance/core/utils/app_colors.dart';
-import 'package:gps_attendance/features/authentication/screens/login_screen.dart';
-import 'package:gps_attendance/features/onboarding/screens/onboarding1.dart';
-import 'package:gps_attendance/features/onboarding/screens/onboarding2.dart';
-import 'package:gps_attendance/features/onboarding/screens/onboarding3.dart';
+import 'package:gps_attendance/features/authentication/presentation/screens/login_screen.dart';
+import 'package:gps_attendance/features/onboarding/presentation/screens/onboarding1.dart';
+import 'package:gps_attendance/features/onboarding/presentation/screens/onboarding2.dart';
+import 'package:gps_attendance/features/onboarding/presentation/screens/onboarding3.dart';
 import 'package:gps_attendance/widgets/nice_button.dart';
 
 class OnBoardingScreen extends StatefulWidget {

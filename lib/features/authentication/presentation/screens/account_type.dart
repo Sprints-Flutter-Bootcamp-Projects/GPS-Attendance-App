@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gps_attendance/features/authentication/screens/signup_screen.dart';
-import 'package:gps_attendance/features/authentication/widgets/account_card.dart';
+import 'package:gps_attendance/features/authentication/presentation/screens/signup_screen.dart';
+import 'package:gps_attendance/features/authentication/presentation/widgets/account_card.dart';
 import 'package:gps_attendance/widgets/appbar.dart';
 
 class AccountsPage extends StatelessWidget {
@@ -21,7 +21,10 @@ class AccountsPage extends StatelessWidget {
               children: [
                 Text(
                   "Account Type",
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
+                  style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
                 ),
                 Text(
                   "Choose the type of account you want to setup",
