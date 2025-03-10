@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:gps_attendance/core/utils/app_colors.dart';
 import 'package:gps_attendance/features/authentication/presentation/screens/account_type.dart';
+import 'package:gps_attendance/features/authentication/presentation/screens/profile_screen.dart';
 
 import 'package:gps_attendance/features/authentication/presentation/screens/signup_screen.dart';
 import 'package:gps_attendance/widgets/nice_button.dart';
@@ -117,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (_formkey.currentState!.validate()) {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => SignUpScreen()),
+                        MaterialPageRoute(builder: (context) => ProfileScreen()),
                       );
                     } else {
                       SnackBar snackBar = SnackBar(

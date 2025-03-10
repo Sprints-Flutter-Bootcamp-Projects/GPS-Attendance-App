@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:gps_attendance/core/utils/app_colors.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final VoidCallback? onBack;
+  final String? button;
+  final Widget? page; 
 
   const CustomAppBar({
-    Key? key,
+    super.key,
     required this.title,
     this.onBack,
-  }) : super(key: key);
+    this.button,
+    this.page,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +31,24 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         title,
         style: TextStyle(fontSize: 18, color: Colors.black),
       ),
+     actions: button != null
+    ? [
+        TextButton(
+          onPressed: () {
+            if (page != null) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => page!),
+              );
+            }
+          },
+          child: Text(
+            button!,
+            style: TextStyle(color: AppColors.primaryColor),
+          ),
+        ),
+      ]
+    : null,
     );
   }
 
