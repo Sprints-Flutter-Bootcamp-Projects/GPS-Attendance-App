@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gps_attendance/features/authentication/presentation/bloc/auth_bloc.dart';
 import 'package:gps_attendance/features/authentication/presentation/screens/login_screen.dart';
-import 'package:gps_attendance/features/authentication/presentation/widgets/page_desc.dart';
-import 'package:gps_attendance/widgets/appbar.dart';
+import 'package:gps_attendance/widgets/title_desc.dart';
+import 'package:gps_attendance/features/authentication/presentation/widgets/auth_appbar.dart';
 import 'package:gps_attendance/widgets/nice_button.dart';
 import 'package:gps_attendance/widgets/text_form_field.dart';
 import 'package:gps_attendance/core/utils/app_colors.dart';
@@ -72,7 +72,7 @@ class _CompleteDetailsPageState extends State<CompleteDetailsPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              PageDesc(
+              TitleDesc(
                   title: 'Profile Details',
                   description: 'Complete Profile Details'),
               SizedBox(

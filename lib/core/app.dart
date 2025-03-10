@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gps_attendance/core/utils/app_colors.dart';
+import 'package:gps_attendance/features/home/presentation/pages/home_screen.dart';
 import 'package:gps_attendance/homepage.dart';
 import 'package:gps_attendance/features/onboarding/presentation/screens/splash.dart';
 
@@ -20,7 +21,8 @@ class MyApp extends StatelessWidget {
       // home: MyHomePage(
       //   title: 'Demo',
       // ),
-      home: SplashScreen(),
+      // home: SplashScreen(),
+      home: HomeScreen(),
     );
   }
 }
