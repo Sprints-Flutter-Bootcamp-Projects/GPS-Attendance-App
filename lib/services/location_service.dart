@@ -103,7 +103,6 @@ class LocationService {
         return true;
       });
     } catch (e) {
-      print('Check-in error: $e');
       rethrow;
     }
   }
@@ -144,7 +143,6 @@ class LocationService {
         return true;
       });
     } catch (e) {
-      print('Check-out error: $e');
       rethrow;
     }
   }

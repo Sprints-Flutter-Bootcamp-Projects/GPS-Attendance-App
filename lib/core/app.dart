@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gps_attendance/core/themes/theme_bloc/theme_bloc.dart';
-import 'package:gps_attendance/features/attendance/presentation/attendance_page.dart';
+import 'package:gps_attendance/features/attendance/presentation/screens/attendance_page.dart';
 import 'package:gps_attendance/features/authentication/presentation/bloc/auth_bloc.dart';
 import 'package:gps_attendance/features/authentication/presentation/screens/login_screen.dart';
 import 'package:gps_attendance/features/authentication/presentation/screens/signup_screen.dart';

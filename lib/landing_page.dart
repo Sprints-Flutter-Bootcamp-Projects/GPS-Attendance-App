@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:gps_attendance/core/constants/colors.dart';
-import 'package:gps_attendance/features/attendance/presentation/attendance_page.dart';
+import 'package:gps_attendance/features/attendance/presentation/screens/attendance_page.dart';
 import 'package:gps_attendance/features/authentication/presentation/screens/profile_screen.dart';
 import 'package:gps_attendance/features/history/presentation/pages/history_page.dart';
 import 'package:gps_attendance/features/home/presentation/home_page.dart';

@@ -4,8 +4,8 @@ import 'package:get_it/get_it.dart';
 import 'package:gps_attendance/core/themes/dark_theme.dart';
 import 'package:gps_attendance/core/themes/light_theme.dart';
 import 'package:gps_attendance/core/themes/theme_bloc/theme_bloc.dart';
+import 'package:gps_attendance/features/authentication/data/repositories/auth_repo.dart';
 import 'package:gps_attendance/features/authentication/presentation/bloc/auth_bloc.dart';
-import 'package:gps_attendance/services/auth_service.dart';
 import 'package:gps_attendance/services/location_service.dart';
 
 final sl = GetIt.instance;

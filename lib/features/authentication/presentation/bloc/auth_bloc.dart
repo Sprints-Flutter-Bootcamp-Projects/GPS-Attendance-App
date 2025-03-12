@@ -1,14 +1,12 @@
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gps_attendance/core/models/user_model.dart';
-import 'package:gps_attendance/services/auth_service.dart';
+import 'package:gps_attendance/features/authentication/data/repositories/auth_repo.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  // final AuthRepository _authRepository;
   final AuthService _authService;
 
   AuthBloc(this._authService) : super(AuthInitial()) {

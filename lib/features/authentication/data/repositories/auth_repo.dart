@@ -1,38 +1,74 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:gps_attendance/core/models/user_model.dart';
 
-class AuthRepository {
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+class AuthService {
+  static final AuthService _instance = AuthService._internal();
+  factory AuthService() => _instance;
+  AuthService._internal();
+
+  final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<User?> signUp(
-      {required String email,
-      required String password,
-      required String fullName}) async {
+  Future<void> signIn(String email, String password) async {
     try {
-      UserCredential userCredential =
-          await _firebaseAuth.createUserWithEmailAndPassword(
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      print('User signed in: ${userCredential.user!.uid}');
+    } on FirebaseAuthException catch (e) {
+      print('Error: ${e.message}');
+    }
+  }
+
+  Future<UserModel?> signUp({
+    required String email,
+    required String password,
+    required String fullName,
+  }) async {
+    try {
+      UserCredential userCredential = await auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
 
-      User? user = userCredential.user;
-      if (user != null) {
-        await _saveUserToFirestore(user.uid, fullName, email);
+      await _firestore.collection('users').doc(userCredential.user!.uid).set({
+        'email': email,
+        'fullName': fullName,
+        'department': 'Not Assigned',
+        'role': 'user',
+        'workZoneId': 'workZone1',
+      });
+      if (userCredential.user != null) {
+        return UserModel(
+          email: email,
+          fullName: fullName,
+          department: 'Not Assigned',
+          id: userCredential.user!.uid,
+          role: 'user',
+          workZoneId: 'workZone1',
+        );
+      } else {
+        return null;
       }
-      return user;
     } catch (e) {
-      print("Error signing up: $e");
-      return null;
+      rethrow;
     }
   }
 
-  Future<void> _saveUserToFirestore(
-      String uid, String fullName, String email) async {
-    await _firestore.collection("users").doc(uid).set({
-      "fullName": fullName,
-      "email": email,
-      "createdAt": Timestamp.now(),
+  Future<void> assignRole(String userId, String role) async {
+    await _firestore.collection('users').doc(userId).update({
+      'role': role,
     });
+  }
+
+  Future<String?> getUserRole(String uid) async {
+    final doc = await _firestore.collection('users').doc(uid).get();
+    return doc['role'] as String?;
+  }
+
+  Future<void> signOut() async {
+    await auth.signOut();
   }
 }
