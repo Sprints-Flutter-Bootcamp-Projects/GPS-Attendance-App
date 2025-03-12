@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:gps_attendance/core/app.dart';
-import 'package:gps_attendance/service_locator.dart';
+import 'package:gps_attendance/core/dependency_injection/service_locator.dart';
 import 'firebase_options.dart';
 
 void main() async {

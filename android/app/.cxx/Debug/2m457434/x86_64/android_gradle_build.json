@@ -1,0 +1,28 @@
+{
+  "buildFiles": [
+    "/home/arch/Development/flutter/packages/flutter_tools/gradle/src/main/groovy/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/home/arch/Android/Sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/home/arch/Desktop/Sprints_Flutter/Graduation_Project/GPS-Attendance-App/android/app/.cxx/Debug/2m457434/x86_64",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/home/arch/Android/Sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/home/arch/Desktop/Sprints_Flutter/Graduation_Project/GPS-Attendance-App/android/app/.cxx/Debug/2m457434/x86_64",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {},
+  "toolchains": {
+    "toolchain": {
+      "cCompilerExecutable": "/home/arch/Android/Sdk/ndk/26.3.11579264/toolchains/llvm/prebuilt/linux-x86_64/bin/clang.lld",
+      "cppCompilerExecutable": "/home/arch/Android/Sdk/ndk/26.3.11579264/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++.lld"
+    }
+  },
+  "cFileExtensions": [],
+  "cppFileExtensions": []
+}
