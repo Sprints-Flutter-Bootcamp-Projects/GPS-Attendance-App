@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gps_attendance/core/utils/app_colors.dart';
 import 'package:gps_attendance/features/authentication/presentation/screens/edit_profile.dart';
-import 'package:gps_attendance/widgets/appbar.dart';
+import 'package:gps_attendance/widgets/custom_appbar.dart';
 
 class ProfileScreen extends StatefulWidget {
   static const String routeName = '/profile_screen';

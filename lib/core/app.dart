@@ -33,7 +33,8 @@ class MyApp extends StatelessWidget {
           title: 'Flutter Demo',
           theme: themeBloc.themeData,
           themeMode: ThemeMode.system,
-          initialRoute: LoginScreen.routeName,
+          // initialRoute: LoginScreen.routeName,
+          initialRoute: HomeScreen.routeName,
           routes: {
             LoginScreen.routeName: (context) => LoginScreen(),
             SignUpScreen.routeName: (context) => SignUpScreen(),

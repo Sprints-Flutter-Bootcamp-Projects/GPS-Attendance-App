@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gps_attendance/features/authentication/presentation/bloc/auth_bloc.dart';
 import 'package:gps_attendance/features/authentication/presentation/screens/company_department.dart';
 
-import 'package:gps_attendance/widgets/appbar.dart';
+import 'package:gps_attendance/widgets/custom_appbar.dart';
 import 'package:gps_attendance/widgets/nice_button.dart';
 import 'package:gps_attendance/widgets/text_form_field.dart';
 

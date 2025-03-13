@@ -6,7 +6,7 @@ import 'package:gps_attendance/features/authentication/presentation/screens/prof
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../core/utils/app_colors.dart';
-import '../../../../widgets/appbar.dart';
+import '../../../../widgets/custom_appbar.dart';
 import '../../../../widgets/nice_button.dart';
 import '../../../../widgets/text_form_field.dart';
 import '../bloc/auth_bloc.dart';

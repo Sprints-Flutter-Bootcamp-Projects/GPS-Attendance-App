@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class CustomCard extends StatelessWidget {
+class ColoredCard extends StatelessWidget {
   final Widget child;
   final Color borderColor;
   final Color backgroundColor;
   final EdgeInsetsGeometry padding;
 
-  const CustomCard({
+  const ColoredCard({
     super.key,
     required this.child,
     this.borderColor = Colors.black12,

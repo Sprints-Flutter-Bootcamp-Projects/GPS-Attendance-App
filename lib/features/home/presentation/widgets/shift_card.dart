@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'custom_card.dart'; // Import the reusable widget
+import 'package:gps_attendance/features/home/presentation/widgets/dot_text.dart';
+import 'package:gps_attendance/features/home/presentation/widgets/state_row.dart';
+import 'colored_card.dart'; // Import the reusable widget
 
 class ShiftDetailsCard extends StatelessWidget {
   const ShiftDetailsCard({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return CustomCard(
+    return ColoredCard(
       borderColor: Colors.orange.shade300,
       backgroundColor: Colors.orange.shade50,
       child: Column(
@@ -25,27 +27,35 @@ class ShiftDetailsCard extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
           ),
           const SizedBox(height: 4),
-          const Text("Morning • 10:30 AM (15 mins)",
-              style: TextStyle(fontSize: 14, color: Colors.black54)),
-          const Text("Lunch • 12:30 PM (45 mins)",
-              style: TextStyle(fontSize: 14, color: Colors.black54)),
+          DotText(firstText: "Morning", secondText: "10:30 AM (15 mins)"),
+          DotText(firstText: "Lunch", secondText: "12:30 PM (45 mins)"),
           const SizedBox(height: 12),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(24),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
+              children: [
                 Text(
                   "Overtime Eligible",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                Chip(
-                  backgroundColor: Colors.lightBlueAccent,
-                  label: Text(
+                OutlinedButton(
+                  onPressed: null,
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                      Colors.teal,
+                    ),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24.0),
+                      ),
+                    ),
+                  ),
+                  child: Text(
                     "YES",
                     style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold),
@@ -69,7 +79,7 @@ class ShiftDetailsCard extends StatelessWidget {
         ),
         const SizedBox(height: 4),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 4),
           decoration: BoxDecoration(
             color: Colors.orange.shade100,
             borderRadius: BorderRadius.circular(8),
