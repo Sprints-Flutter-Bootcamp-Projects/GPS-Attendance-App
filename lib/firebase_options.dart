@@ -55,6 +55,7 @@ class DefaultFirebaseOptions {
     appId: '1:453907172022:android:4fa716be7a61321d207417',
     messagingSenderId: '453907172022',
     projectId: 'gps-attendance-25',
+    databaseURL: 'https://gps-attendance-25-default-rtdb.firebaseio.com',
     storageBucket: 'gps-attendance-25.firebasestorage.app',
   );
 
@@ -63,6 +64,7 @@ class DefaultFirebaseOptions {
     appId: '1:453907172022:ios:15c7eef11a010b35207417',
     messagingSenderId: '453907172022',
     projectId: 'gps-attendance-25',
+    databaseURL: 'https://gps-attendance-25-default-rtdb.firebaseio.com',
     storageBucket: 'gps-attendance-25.firebasestorage.app',
     iosBundleId: 'com.example.gpsAttendance',
   );

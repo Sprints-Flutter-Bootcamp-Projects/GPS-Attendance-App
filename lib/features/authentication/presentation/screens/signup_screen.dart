@@ -3,13 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gps_attendance/features/authentication/presentation/bloc/auth_bloc.dart';
 import 'package:gps_attendance/features/authentication/presentation/screens/company_department.dart';
 
-import 'package:gps_attendance/widgets/appbar.dart';
+import 'package:gps_attendance/widgets/custom_appbar.dart';
 import 'package:gps_attendance/widgets/nice_button.dart';
 import 'package:gps_attendance/widgets/text_form_field.dart';
 
 class SignUpScreen extends StatefulWidget {
+  static const String routeName = '/signup_screen';
+  const SignUpScreen({super.key});
+
   @override
-  _SignUpScreenState createState() => _SignUpScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
@@ -44,10 +47,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     content: Text("Signup successful!"),
                     backgroundColor: Colors.green),
               );
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => CompleteDetailsPage()),
-              );
+              Navigator.pop(context);
+              // Navigator.pushReplacement(
+              //   context,
+              //   MaterialPageRoute(builder: (context) => CompleteDetailsPage()),
+              // );
             } else if (state is AuthFailure) {
               Navigator.pop(context); // Close loading dialog
               ScaffoldMessenger.of(context).showSnackBar(
@@ -132,7 +136,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 SignUpRequested(
                                   email: _emailController.text.trim(),
                                   password: _passwordController.text.trim(),
-                                  role: "user",
                                   fullName: _fullNameController.text.trim(),
                                 ),
                               );

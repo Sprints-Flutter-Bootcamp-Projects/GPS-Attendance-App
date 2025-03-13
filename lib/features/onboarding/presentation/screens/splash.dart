@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:gps_attendance/features/onboarding/presentation/screens/onboarding.dart';
 
 class SplashScreen extends StatefulWidget {
+  static const String routeName = '/splash_screen';
   const SplashScreen({super.key});
 
   @override

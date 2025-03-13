@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gps_attendance/features/authentication/presentation/bloc/auth_bloc.dart';
 import 'package:gps_attendance/features/authentication/presentation/screens/login_screen.dart';
 import 'package:gps_attendance/features/authentication/presentation/widgets/page_desc.dart';
-import 'package:gps_attendance/widgets/appbar.dart';
+import 'package:gps_attendance/widgets/custom_appbar.dart';
 import 'package:gps_attendance/widgets/nice_button.dart';
 import 'package:gps_attendance/widgets/text_form_field.dart';
 import 'package:gps_attendance/core/utils/app_colors.dart';

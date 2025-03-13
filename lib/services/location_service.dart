@@ -1,184 +1,187 @@
-// import 'dart:async';
+import 'dart:async';
+import 'package:geolocator/geolocator.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:gps_attendance/core/models/work_zone.dart';
+import 'package:gps_attendance/features/attendance/datatypes/geofence_result.dart';
+import 'package:gps_attendance/services/firestore_service.dart';
+import 'package:intl/intl.dart';
 
-// import 'package:geolocator/geolocator.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-// import '../models/work_zone.dart';
-// import '../services/firestore_service.dart';
+class LocationService {
+  static final LocationService _instance = LocationService._internal();
+  factory LocationService() => _instance;
+  LocationService._internal();
 
-// class LocationService {
-//   static final LocationService _instance = LocationService._internal();
-//   factory LocationService() => _instance;
-//   LocationService._internal();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final DateFormat _dateFormatter = DateFormat('yyyy-MM-dd');
 
-//   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-//   final FirebaseAuth _auth = FirebaseAuth.instance;
+  Future<WorkZone?> getUserWorkZone() async {
+    final userId = _auth.currentUser!.uid;
+    final workZoneId = await FirestoreService().getUserWorkZoneId(userId);
+    if (workZoneId != null) {
+      final querySnapshot = await _firestore
+          .collection('workZones')
+          .where('id', isEqualTo: workZoneId)
+          .get();
 
-//   Future<WorkZone?> getUserWorkZone() async {
-//     final userId = _auth.currentUser!.uid;
-//     final workZoneId = await FirestoreService().getUserWorkZoneId(userId);
-//     if (workZoneId != null) {
-//       final querySnapshot = await _firestore
-//           .collection('workZones')
-//           .where('id', isEqualTo: 'workZone1')
-//           .get();
+      if (querySnapshot.docs.isNotEmpty) {
+        return WorkZone.fromMap(querySnapshot.docs.first.data());
+      }
+    }
+    return null;
+  }
 
-//       if (querySnapshot.docs.isNotEmpty) {
-//         return WorkZone.fromMap(querySnapshot.docs.first.data());
-//       }
-//     }
-//     return null;
-//   }
+  Future<GeofenceResult?> isUserWithinGeofence() async {
+    final workZone = await getUserWorkZone();
 
-//   Future<bool> isUserWithinGeofence() async {
-//     final workZone = await getUserWorkZone();
+    if (workZone == null) return null;
 
-//     if (workZone == null) return false;
+    try {
+      Position position = await getCurrentUserPosition();
 
-//     try {
-//       Position position = await getCurrentUserPosition();
+      double userLat = position.latitude;
+      double userLng = position.longitude;
 
-//       double userLat = position.latitude;
-//       double userLng = position.longitude;
+      bool isWithinGeofence = await _isWithinGeofence(
+          userLat, userLng, workZone.latitude, workZone.longitude);
 
-//       print(_isWithinGeofence(
-//           userLat, userLng, workZone.latitude, workZone.longitude));
-//       return _isWithinGeofence(
-//           userLat, userLng, workZone.latitude, workZone.longitude);
-//     } on Exception catch (e) {
-//       print('Error checking geofence: $e');
-//       return false;
-//     }
-//   }
+      return GeofenceResult(
+        isWithinGeofence: isWithinGeofence,
+        userLatLng: LatLng(userLat, userLng),
+      );
+    } catch (e) {
+      rethrow;
+    }
+  }
 
-//   Future<bool> _isWithinGeofence(double userLat, double userLng,
-//       double workZoneLat, double workZoneLng) async {
-//     final settings = await FirestoreService().getGeofenceSettings();
-//     double radius = settings.radius;
+  Future<bool> _isWithinGeofence(double userLat, double userLng,
+      double workZoneLat, double workZoneLng) async {
+    final settings = await FirestoreService().getGeofenceSettings();
+    double radius = settings.radius;
 
-//     return ((workZoneLat - userLat).abs() < radius &&
-//         (workZoneLng - userLng).abs() < radius);
-//   }
+    return ((workZoneLat - userLat).abs() < radius &&
+        (workZoneLng - userLng).abs() < radius);
+  }
 
-//   Future<void> manualCheckIn() async {
-//     bool isWithinGeofence = await isUserWithinGeofence();
+  Future<bool> checkIn() async {
+    final user = _auth.currentUser;
+    if (user == null) {
+      throw Exception('User is not authenticated.');
+    }
 
-//     if (isWithinGeofence) {
-//       final user = _auth.currentUser;
-//       if (user != null) {
-//         final userDoc =
-//             await _firestore.collection('users').doc(user.uid).get();
-//         final userName = userDoc['email']; // Use email as the user name
+    final todayDoc = _firestore
+        .collection('users')
+        .doc(user.uid)
+        .collection('attendance')
+        .doc(_dateFormatter.format(DateTime.now()));
 
-//         // Check if the user is already checked in
-//         if (userDoc['status'] == 'checked-out') {
-//           await _firestore.collection('attendance').add({
-//             'userId': user.uid,
-//             'userName': userName,
-//             'type': 'check-in',
-//             'timestamp': DateTime.now(),
-//           });
+    try {
+      return _firestore.runTransaction<bool>((transaction) async {
+        final doc = await transaction.get(todayDoc);
 
-//           // Update user status to 'checked-in'
-//           await _firestore.collection('users').doc(user.uid).update({
-//             'status': 'checked-in',
-//           });
+        // Prevent duplicate check-ins
+        if (doc.exists && doc.data()?.containsKey('checkIn') == true) {
+          return false;
+        }
 
-//           print('Check-in recorded successfully');
-//         } else {
-//           print('User is already checked in.');
-//         }
-//       }
-//     } else {
-//       print('User is outside the geofence. Check-in not allowed.');
-//     }
-//   }
+        transaction.set(
+          todayDoc,
+          {
+            'checkIn': FieldValue.serverTimestamp(),
+            'userId': user.uid,
+            'status': 'checked-in'
+          },
+          SetOptions(merge: true),
+        );
 
-//   Future<void> manualCheckOut() async {
-//     bool isWithinGeofence = await isUserWithinGeofence();
-//     if (!isWithinGeofence) {
-//       final user = _auth.currentUser;
-//       if (user != null) {
-//         final userDoc =
-//             await _firestore.collection('users').doc(user.uid).get();
-//         final userName = userDoc['email']; // Use email as the user name
+        return true;
+      });
+    } catch (e) {
+      rethrow;
+    }
+  }
 
-//         // Check if the user is already checked out
-//         if (userDoc['status'] == 'checked-in') {
-//           await _firestore.collection('attendance').add({
-//             'userId': user.uid,
-//             'userName': userName,
-//             'type': 'check-out',
-//             'timestamp': DateTime.now(),
-//           });
+  Future<bool> checkOut() async {
+    final user = _auth.currentUser;
+    if (user == null) throw Exception('User is not authenticated');
 
-//           // Update user status to 'checked-out'
-//           await _firestore.collection('users').doc(user.uid).update({
-//             'status': 'checked-out',
-//           });
+    final todayDoc = _firestore
+        .collection('users')
+        .doc(user.uid)
+        .collection('attendance')
+        .doc(_dateFormatter.format(DateTime.now()));
 
-//           print('Check-out recorded successfully');
-//         } else {
-//           print('User is already checked out.');
-//         }
-//       }
-//     } else {
-//       print('User is inside the geofence. Check-out not allowed.');
-//     }
-//   }
+    try {
+      return await _firestore.runTransaction<bool>((transaction) async {
+        final doc = await transaction.get(todayDoc);
 
-//   Stream<Position> getCurrentLocationStream() {
-//     return Geolocator.getPositionStream(
-//       locationSettings: LocationSettings(
-//         accuracy: LocationAccuracy.high,
-//         distanceFilter: 10, // Update every 10 meters
-//       ),
-//     );
-//   }
+        // Validate check-in existence
+        if (!doc.exists || doc.data()?['checkIn'] == null) {
+          throw Exception('Check-in required before checkout');
+        }
 
-//   Future<Position> getCurrentUserPosition() async {
-//     bool serviceEnabled;
-//     LocationPermission permission;
+        // Prevent duplicate checkouts
+        if (doc.data()?['checkOut'] != null) {
+          return false;
+        }
 
-//     // Test if location services are enabled.
-//     serviceEnabled = await Geolocator.isLocationServiceEnabled();
-//     if (!serviceEnabled) {
-//       // Location services are not enabled don't continue
-//       // accessing the position and request users of the
-//       // App to enable the location services.
-//       return Future.error('Location services are disabled.');
-//     }
+        transaction.update(todayDoc, {
+          'checkOut': FieldValue.serverTimestamp(),
+          'status': 'checked-out'
+        });
 
-//     permission = await Geolocator.checkPermission();
-//     if (permission == LocationPermission.denied) {
-//       permission = await Geolocator.requestPermission();
-//       if (permission == LocationPermission.denied) {
-//         // Permissions are denied, next time you could try
-//         // requesting permissions again (this is also where
-//         // Android's shouldShowRequestPermissionRationale
-//         // returned true. According to Android guidelines
-//         // your App should show an explanatory UI now.
-//         return Future.error('Location permissions are denied');
-//       }
-//     }
+        return true;
+      });
+    } catch (e) {
+      rethrow;
+    }
+  }
 
-//     if (permission == LocationPermission.deniedForever) {
-//       // Permissions are denied forever, handle appropriately.
-//       return Future.error(
-//           'Location permissions are permanently denied, we cannot request permissions.');
-//     }
+  Future<Position> getCurrentUserPosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
 
-//     // When we reach here, permissions are granted and we can
-//     // continue accessing the position of the device.
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // Location services are not enabled don't continue
+      // accessing the position and request users of the
+      // App to enable the location services.
+      return Future.error('Location services are disabled.');
+    }
 
-//     // Get the current position with a timeout
-//     try {
-//       return await Geolocator.getCurrentPosition()
-//           .timeout(const Duration(seconds: 10)); // Add a 10-second timeout
-//     } on TimeoutException catch (e) {
-//       return Future.error('Failed to get location: ${e.message}');
-//     } catch (e) {
-//       return Future.error('Failed to get location: $e');
-//     }
-//   }
-// }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        // Permissions are denied, next time you could try
+        // requesting permissions again (this is also where
+        // Android's shouldShowRequestPermissionRationale
+        // returned true. According to Android guidelines
+        // your App should show an explanatory UI now.
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    // When we reach here, permissions are granted and we can
+    // continue accessing the position of the device.
+
+    // Get the current position with a timeout
+    try {
+      return await Geolocator.getCurrentPosition()
+          .timeout(const Duration(seconds: 10)); // Add a 10-second timeout
+    } on TimeoutException catch (e) {
+      return Future.error('Failed to get location: ${e.message}');
+    } catch (e) {
+      return Future.error('Failed to get location: $e');
+    }
+  }
+}

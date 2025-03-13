@@ -1,16 +1,19 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:gps_attendance/core/utils/app_colors.dart';
+import 'package:gps_attendance/features/attendance/presentation/screens/attendance_page.dart';
+import 'package:gps_attendance/features/authentication/data/repositories/auth_repo.dart';
 import 'package:gps_attendance/features/authentication/presentation/screens/account_type.dart';
-import 'package:gps_attendance/features/authentication/presentation/screens/profile_screen.dart';
+import 'package:gps_attendance/features/profile/presentation/screens/profile_screen.dart';
 
 import 'package:gps_attendance/features/authentication/presentation/screens/signup_screen.dart';
+import 'package:gps_attendance/landing_page.dart';
+
 import 'package:gps_attendance/widgets/nice_button.dart';
 import 'package:gps_attendance/widgets/text_form_field.dart';
 
-import '../../../../services/auth_service.dart';
-
 class LoginScreen extends StatefulWidget {
+  static const String routeName = '/login_screen';
   const LoginScreen({super.key});
 
   @override
@@ -29,11 +32,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-      ),
       body: Padding(
-        padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formkey,
           child: Column(
@@ -43,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 top: 10,
                 child: Center(
                   child: Image.asset(
-                    'assets/images/image.png',
+                    'assets/images/logo.png',
                     width: 248,
                     height: 248,
                   ),
@@ -114,12 +114,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   )),
               niceButton(
                   title: 'Login',
-                  onTap: () {
+                  onTap: () async {
                     if (_formkey.currentState!.validate()) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => ProfileScreen()),
-                      );
+                      try {
+                        await authService.signIn(
+                          _emailController.text,
+                          _passwordController.text,
+                        );
+                        Navigator.pushReplacementNamed(
+                            context, LandingPage.routeName);
+                      } catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(e.toString())));
+                      }
                     } else {
                       SnackBar snackBar = SnackBar(
                         //snackbar showing if the data is valid or not
@@ -143,7 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => AccountsPage()),
+                              builder: (context) => SignUpScreen()),
                         );
                       },
                       child: Text(
