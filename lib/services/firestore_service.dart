@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gps_attendance/core/models/geofence_settings.dart';
+import 'package:gps_attendance/core/models/user_model.dart';
 import 'package:gps_attendance/core/models/work_zone.dart';
+import 'package:gps_attendance/features/history/datatypes/user_month_stats.dart';
+import 'package:intl/intl.dart';
 
 class FirestoreService {
   static final FirestoreService _instance = FirestoreService._internal();
@@ -10,6 +13,8 @@ class FirestoreService {
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  final DateFormat _dateFormatter = DateFormat('yyyy-MM-dd');
 
   Future<void> updateGeofenceSettings(GeofenceSettings settings) async {
     await _firestore
@@ -54,7 +59,7 @@ class FirestoreService {
     return doc['workZoneId'] as String?;
   }
 
-  Stream<QuerySnapshot> getAttendanceHistory() {
+  Stream<QuerySnapshot> getCurrentUserAttendanceRecords() {
     final userId = _auth.currentUser!.uid;
     return _firestore
         .collection('users')
@@ -76,16 +81,17 @@ class FirestoreService {
     }).toList();
   }
 
-  // Fetch all attendance records (for moderators and admins)
-  Stream<QuerySnapshot> getAllAttendanceRecords() {
+  // Fetch all attendance records
+  Stream<QuerySnapshot> getAllUsersAttendanceRecords() {
     return _firestore
         .collectionGroup('attendance')
         .orderBy('checkIn', descending: true)
         .snapshots();
   }
 
-  // Fetch attendance records for a specific user (for regular users)
-  Stream<QuerySnapshot> getUserAttendanceRecords({required String userId}) {
+  // Fetch attendance records for a specific user
+  Stream<QuerySnapshot> getSpecificUserAttendanceRecords(
+      {required String userId}) {
     return _firestore
         .collection('users')
         .doc(userId)
@@ -95,35 +101,148 @@ class FirestoreService {
   }
 
   // Delete a record (for admins)
-  Future<void> deleteAttendanceRecord(String userId, String recordId) async {
+  Future<void> deleteAttendanceRecord(String userId, DateTime day) async {
     await _firestore
         .collection('users')
         .doc(userId)
         .collection('attendance')
-        .doc(recordId)
+        .doc(_dateFormatter.format(day))
         .delete();
   }
 
-  Future<int> getPresentDaysInCurrentMonth({required int month}) async {
+  Future<AttendanceRecord?> getCurrentUserAttendanceRecordForDay(
+      DateTime day) async {
+    try {
+      final snapshot = await _firestore
+          .collection('users')
+          .doc(_auth.currentUser!.uid)
+          .collection('attendance')
+          .doc(_dateFormatter.format(day))
+          .get();
+
+      if (!snapshot.exists) {
+        return null; // Return null if document doesn't exist
+      }
+
+      final data = snapshot.data();
+
+      if (data == null) return null;
+
+      return AttendanceRecord.fromMap(data); // Return the AttendanceRecord
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<UserMonthStatsResult> getCurrentMonthStats() async {
+    DateTime now = DateTime.now();
+
+    final startOfMonth = DateTime(now.year, now.month, 1);
+    final endOfMonth = DateTime(now.year, now.month + 1, 0);
+
     try {
       final snapshot = await _firestore
           .collection('users')
           .doc(_auth.currentUser!.uid)
           .collection('attendance')
           .where('checkIn',
-              isGreaterThanOrEqualTo:
-                  Timestamp.fromDate(DateTime(2025, month, 1)))
-          .where('checkIn',
-              isLessThanOrEqualTo:
-                  Timestamp.fromDate(DateTime(2025, month + 1, 0)))
+              isGreaterThanOrEqualTo: Timestamp.fromDate(startOfMonth))
+          .where('checkIn', isLessThanOrEqualTo: Timestamp.fromDate(endOfMonth))
           .get();
 
-      final presentDays = snapshot.docs
+      if (snapshot.docs.isEmpty) {
+        return UserMonthStatsResult(
+          daysPresent: 0,
+          totalHours: Duration.zero,
+          totalOvertime: Duration.zero,
+        );
+      }
+
+      final int presentDays = snapshot.docs
           .map((doc) => (doc['checkIn'] as Timestamp).toDate().day)
           .toSet()
           .length;
 
-      return presentDays;
+      Duration totalWorkHours = Duration.zero;
+      Duration totalOvertime = Duration.zero;
+      Duration standardWorkDay = Duration(hours: 8);
+
+      for (var doc in snapshot.docs) {
+        final attendanceRecord = AttendanceRecord.fromMap(doc.data());
+        if (attendanceRecord.status == 'checked-out' &&
+            attendanceRecord.checkOut != null) {
+          final duration =
+              attendanceRecord.checkOut!.difference(attendanceRecord.checkIn);
+          totalWorkHours += duration;
+
+          if (duration > standardWorkDay) {
+            totalOvertime += duration - standardWorkDay; // Calculate overtime
+          }
+        }
+      }
+
+      return UserMonthStatsResult(
+        daysPresent: presentDays,
+        totalHours: totalWorkHours,
+        totalOvertime: totalOvertime,
+      );
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<Duration?> getHoursWorkedforDay(DateTime day) async {
+    try {
+      final snapshot = await _firestore
+          .collection('users')
+          .doc(_auth.currentUser!.uid)
+          .collection('attendance')
+          .doc(_dateFormatter.format(day))
+          .get();
+
+      if (snapshot.exists) {
+        final data = snapshot.data();
+        if (data == null || data['status'] != 'checked-out') {
+          return null;
+        }
+
+        final Timestamp? checkInTimestamp = data['checkIn'] as Timestamp?;
+        final Timestamp? checkOutTimestamp = data['checkOut'] as Timestamp?;
+
+        if (checkInTimestamp == null || checkOutTimestamp == null) {
+          return null;
+        }
+
+        final DateTime checkIn = checkInTimestamp.toDate();
+        final DateTime checkOut = checkOutTimestamp.toDate();
+
+        return checkOut.difference(checkIn);
+      } else {
+        return null;
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  getTodayStats() async {
+    DateTime now = DateTime.now();
+
+    try {
+      final snapshot = await _firestore
+          .collection('users')
+          .doc(_auth.currentUser!.uid)
+          .collection('attendance')
+          .doc(_dateFormatter.format(now))
+          .get();
+
+      if (snapshot.exists) {
+        final todayRecord = AttendanceRecord.fromMap(snapshot.data()!);
+        final workingHoursTodayInMinutes =
+            todayRecord.checkOut?.difference(todayRecord.checkIn).inMinutes;
+
+        print('today\'s Record: ${workingHoursTodayInMinutes}');
+      }
     } catch (e) {
       rethrow;
     }

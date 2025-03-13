@@ -91,15 +91,11 @@ class LocationService {
           {
             'checkIn': FieldValue.serverTimestamp(),
             'userId': user.uid,
+            'status': 'checked-in'
           },
           SetOptions(merge: true),
         );
 
-        // Update user status
-        transaction.update(
-          _firestore.collection('users').doc(user.uid),
-          {'status': 'checked-in'},
-        );
         return true;
       });
     } catch (e) {
@@ -133,12 +129,8 @@ class LocationService {
 
         transaction.update(todayDoc, {
           'checkOut': FieldValue.serverTimestamp(),
+          'status': 'checked-out'
         });
-
-        transaction.update(
-          _firestore.collection('users').doc(user.uid),
-          {'status': 'checked-out'},
-        );
 
         return true;
       });

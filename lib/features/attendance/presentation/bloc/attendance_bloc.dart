@@ -20,9 +20,10 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
 
       if (geofenceResult == null) {
         emit(AttendanceFailedToGetWorkZone());
+        return null;
       }
 
-      if (geofenceResult!.isWithinGeofence) {
+      if (geofenceResult.isWithinGeofence) {
         bool userhasCheckedIn = await locationService.checkIn();
 
         if (userhasCheckedIn) {
@@ -49,9 +50,10 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
 
       if (geofenceResult == null) {
         emit(AttendanceFailedToGetWorkZone());
+        return null;
       }
 
-      if (geofenceResult!.isWithinGeofence) {
+      if (geofenceResult.isWithinGeofence) {
         bool userhasCheckedOut = await locationService.checkOut();
 
         if (userhasCheckedOut) {

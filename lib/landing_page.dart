@@ -4,7 +4,7 @@ import 'package:gps_attendance/core/constants/colors.dart';
 import 'package:gps_attendance/features/attendance/presentation/screens/attendance_page.dart';
 import 'package:gps_attendance/features/authentication/presentation/screens/profile_screen.dart';
 import 'package:gps_attendance/features/history/presentation/pages/history_page.dart';
-import 'package:gps_attendance/features/home/presentation/home_page.dart';
+import 'package:gps_attendance/features/home/presentation/pages/home_screen.dart';
 
 class LandingPage extends StatefulWidget {
   static const String routeName = '/landingpage';
@@ -17,7 +17,7 @@ class LandingPage extends StatefulWidget {
 
 class _LandingPageState extends State<LandingPage> {
   final List<Widget> pages = <Widget>[
-    HomePage(),
+    HomeScreen(),
     AttendancePage(),
     HistoryPage(),
     ProfileScreen()

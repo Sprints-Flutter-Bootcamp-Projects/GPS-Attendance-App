@@ -34,19 +34,23 @@ class AttendanceRecord {
   final DateTime checkIn;
   final DateTime? checkOut;
   final String userId;
+  final String status;
 
   AttendanceRecord({
     required this.checkIn,
     required this.checkOut,
     required this.userId,
+    required this.status,
   });
 
   factory AttendanceRecord.fromMap(Map<String, dynamic> map) {
     return AttendanceRecord(
-      checkIn: (map['checkIn'] as Timestamp).toDate(),
-      checkOut: (map['checkOut'] as Timestamp).toDate(),
-      userId: map['userId'] ?? '',
-    );
+        checkIn: (map['checkIn'] as Timestamp).toDate(),
+        checkOut: map['checkOut'] != null
+            ? (map['checkOut'] as Timestamp).toDate()
+            : null,
+        userId: map['userId'] ?? '',
+        status: map['status'] ?? '');
   }
 
   Map<String, dynamic> toMap() {
@@ -54,6 +58,7 @@ class AttendanceRecord {
       'checkIn': Timestamp.fromDate(checkIn),
       'checkOut': checkOut != null ? Timestamp.fromDate(checkOut!) : null,
       'userId': userId,
+      'status': status,
     };
   }
 }

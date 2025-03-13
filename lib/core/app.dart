@@ -7,6 +7,7 @@ import 'package:gps_attendance/features/authentication/presentation/bloc/auth_bl
 import 'package:gps_attendance/features/authentication/presentation/screens/login_screen.dart';
 import 'package:gps_attendance/features/authentication/presentation/screens/signup_screen.dart';
 import 'package:gps_attendance/features/history/presentation/pages/history_page.dart';
+import 'package:gps_attendance/features/home/presentation/pages/home_screen.dart';
 import 'package:gps_attendance/landing_page.dart';
 
 import 'package:gps_attendance/core/dependency_injection/service_locator.dart';
@@ -36,8 +37,9 @@ class MyApp extends StatelessWidget {
           routes: {
             LoginScreen.routeName: (context) => LoginScreen(),
             SignUpScreen.routeName: (context) => SignUpScreen(),
-            AttendancePage.routeName: (context) => AttendancePage(),
             LandingPage.routeName: (context) => LandingPage(),
+            HomeScreen.routeName: (context) => HomeScreen(),
+            AttendancePage.routeName: (context) => AttendancePage(),
             HistoryPage.routeName: (context) => HistoryPage(),
           },
         );

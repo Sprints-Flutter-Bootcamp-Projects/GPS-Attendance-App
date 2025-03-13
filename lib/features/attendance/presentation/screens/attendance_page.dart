@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -7,7 +6,6 @@ import 'package:gps_attendance/core/constants/colors.dart';
 import 'package:gps_attendance/core/dependency_injection/service_locator.dart';
 import 'package:gps_attendance/features/attendance/presentation/bloc/attendance_bloc.dart';
 import 'package:gps_attendance/features/attendance/presentation/widgets/area_status_chip.dart';
-import 'package:gps_attendance/services/location_service.dart';
 import 'package:gps_attendance/widgets/buttons/button.dart';
 import 'package:gps_attendance/widgets/warnings/snackbar.dart';
 
@@ -53,8 +51,7 @@ class _AttendancePageState extends State<AttendancePage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          AttendanceBloc(locationService: sl<LocationService>()),
+      create: (context) => sl<AttendanceBloc>(),
       child: Scaffold(
         appBar: AppBar(title: Text('Main Office - Building A')),
         body: SizedBox(
@@ -98,7 +95,7 @@ class _AttendancePageState extends State<AttendancePage> {
                   if (state is AttendanceEmployeeAlreadyCheckedIn) {
                     TrackSyncSnackbar.show(
                       context,
-                      'You have already Checked in',
+                      'You have already Checked in Today',
                       SnackbarType.error,
                     );
                   }
@@ -106,7 +103,7 @@ class _AttendancePageState extends State<AttendancePage> {
                   if (state is AttendanceEmployeeAlreadyCheckedOut) {
                     TrackSyncSnackbar.show(
                       context,
-                      'You have already Checked Out',
+                      'You have already Checked Out Today',
                       SnackbarType.error,
                     );
                   }
