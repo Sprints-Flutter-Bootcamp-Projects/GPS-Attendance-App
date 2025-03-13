@@ -26,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: HomeAppBar(title: "Home"),
+      drawer: AppDrawer(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
