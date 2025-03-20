@@ -9,7 +9,9 @@ abstract class AttendanceState extends Equatable {
 
 class AttendanceInitial extends AttendanceState {}
 
-class AttendanceLoading extends AttendanceState {}
+class AttendanceWorkZoneLoading extends AttendanceState {}
+
+class AttendanceWorkZoneLoaded extends AttendanceState {}
 
 class AttendanceCheckInLoading extends AttendanceState {}
 

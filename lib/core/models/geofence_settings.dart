@@ -7,7 +7,7 @@ class GeofenceSettings {
 
   factory GeofenceSettings.fromMap(Map<String, dynamic> data) {
     return GeofenceSettings(
-      radius: data['radius'] as double,
+      radius: (data['radius'] as num).toDouble(),
     );
   }
 

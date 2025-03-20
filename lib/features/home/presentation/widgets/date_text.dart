@@ -4,12 +4,12 @@ import 'package:intl/intl.dart';
 class DateText extends StatelessWidget {
   final DateTime date;
 
-  const DateText({Key? key, required this.date}) : super(key: key);
+  const DateText({super.key, required this.date});
 
   @override
   Widget build(BuildContext context) {
     String formattedDate =
-        DateFormat.yMMMMd().format(date); // Example: June 13, 2024
+        DateFormat.yMMMEd().format(date); // Example: June 13, 2024
 
     return Text(
       formattedDate,

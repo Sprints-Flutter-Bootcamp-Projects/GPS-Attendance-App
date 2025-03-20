@@ -1,16 +1,10 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gps_attendance/features/profile/presentation/screens/profile_screen.dart';
 import 'package:image_picker/image_picker.dart';
-
 import '../../../../core/utils/app_colors.dart';
-import '../../../../widgets/custom_appbar.dart';
-import '../../../../widgets/nice_button.dart';
-import '../../../../widgets/text_form_field.dart';
-import '../../../authentication/presentation/bloc/auth_bloc.dart';
-import '../../../authentication/presentation/widgets/page_desc.dart';
+import '../../../../widgets/ui_components/custom_appbar.dart';
+import '../../../../widgets/ui_components/text_form_field.dart';
 
 class EditProfileScreen extends StatefulWidget {
   static const String routeName = '/edit_profile_screen';
@@ -47,16 +41,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         _image = File(pickedFile.path);
       });
     }
-  }
-
-  void _saveDetails(BuildContext context) {
-    final authBloc = BlocProvider.of<AuthBloc>(context);
-    authBloc.add(SaveUserDetailsEvent(
-      company: _companyController.text,
-      department: _departmentController.text,
-      title: _titleController.text,
-      imageUrl: _image?.path,
-    ));
   }
 
   @override
@@ -205,7 +189,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     width: MediaQuery.of(context).size.width / 3,
                     child: ElevatedButton(
                       onPressed: () async {
-                        _saveDetails(context);
                         await Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(

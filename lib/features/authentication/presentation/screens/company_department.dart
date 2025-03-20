@@ -4,9 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gps_attendance/features/authentication/presentation/bloc/auth_bloc.dart';
 import 'package:gps_attendance/features/authentication/presentation/screens/login_screen.dart';
 import 'package:gps_attendance/features/authentication/presentation/widgets/page_desc.dart';
-import 'package:gps_attendance/widgets/custom_appbar.dart';
-import 'package:gps_attendance/widgets/nice_button.dart';
-import 'package:gps_attendance/widgets/text_form_field.dart';
+import 'package:gps_attendance/widgets/ui_components/custom_appbar.dart';
+import 'package:gps_attendance/widgets/ui_components/nice_button.dart';
+import 'package:gps_attendance/widgets/ui_components/text_form_field.dart';
 import 'package:gps_attendance/core/utils/app_colors.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -32,16 +32,6 @@ class _CompleteDetailsPageState extends State<CompleteDetailsPage> {
         _image = File(pickedFile.path);
       });
     }
-  }
-
-  void _saveDetails(BuildContext context) {
-    final authBloc = BlocProvider.of<AuthBloc>(context);
-    authBloc.add(SaveUserDetailsEvent(
-      company: _companyController.text,
-      department: _departmentController.text,
-      title: _titleController.text,
-      imageUrl: _image?.path,
-    ));
   }
 
   @override
@@ -153,7 +143,7 @@ class _CompleteDetailsPageState extends State<CompleteDetailsPage> {
                   }
                   return niceButton(
                     title: 'Complete Details',
-                    onTap: () => _saveDetails(context),
+                    onTap: () {},
                   );
                 },
               ),

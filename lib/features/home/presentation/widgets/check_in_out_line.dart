@@ -4,7 +4,7 @@ class CheckInOutWidget extends StatelessWidget {
   final String label;
   final String time;
 
-  const CheckInOutWidget({super.key, required this.label, required this.time});
+  const CheckInOutWidget({super.key, required this.label, this.time = ''});
 
   @override
   Widget build(BuildContext context) {

@@ -1,10 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gps_attendance/core/models/user_model.dart';
-import 'package:gps_attendance/core/models/work_zone.dart';
+import 'package:gps_attendance/core/models/user/user_model.dart';
 import 'package:gps_attendance/services/firestore_service.dart';
 
 part 'user_profile_state.dart';

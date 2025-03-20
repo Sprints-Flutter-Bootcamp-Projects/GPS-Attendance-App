@@ -1,0 +1,2 @@
+/home/arch/Desktop/Sprints_Flutter/Graduation_Project/Branches/main_test/GPS-Attendance-App/android/app/.cxx/Debug/282s486j/armeabi-v7a/CMakeFiles/edit_cache.dir
+/home/arch/Desktop/Sprints_Flutter/Graduation_Project/Branches/main_test/GPS-Attendance-App/android/app/.cxx/Debug/282s486j/armeabi-v7a/CMakeFiles/rebuild_cache.dir

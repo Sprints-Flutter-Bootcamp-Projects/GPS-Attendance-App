@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gps_attendance/core/cubits/monthstats/monthstats_cubit.dart';
-import 'package:gps_attendance/widgets/chip.dart';
-import 'package:gps_attendance/widgets/warnings/snackbar.dart';
+import 'package:gps_attendance/widgets/ui_components/chip.dart';
+import 'package:gps_attendance/widgets/ui_components/warnings/snackbar.dart';
 
 class QuickStatsCard extends StatelessWidget {
   const QuickStatsCard({super.key});

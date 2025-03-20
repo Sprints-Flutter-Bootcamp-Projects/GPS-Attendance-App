@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:gps_attendance/core/models/work_zone.dart';
 import 'package:gps_attendance/services/location_service.dart';
 
 part 'attendance_event.dart';
@@ -8,11 +9,22 @@ part 'attendance_state.dart';
 
 class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
   final LocationService locationService;
+  WorkZone? _workZone;
 
   AttendanceBloc({required this.locationService}) : super(AttendanceInitial()) {
+    on<InitializeWorkZone>(_initializeWorkZone);
     on<CheckIn>(_checkIn);
     on<CheckOut>(_checkOut);
   }
+  Future<void> _initializeWorkZone(
+      AttendanceEvent event, Emitter<AttendanceState> emit) async {
+    emit(AttendanceWorkZoneLoading());
+    _workZone = await locationService.getUserWorkZone();
+    emit(AttendanceWorkZoneLoaded());
+  }
+
+  WorkZone? get workZone => _workZone;
+
   _checkIn(AttendanceEvent event, Emitter<AttendanceState> emit) async {
     emit(AttendanceCheckInLoading());
     try {

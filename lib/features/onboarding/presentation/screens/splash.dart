@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gps_attendance/features/onboarding/presentation/screens/onboarding.dart';
 
@@ -58,9 +56,9 @@ class _SplashScreenState extends State<SplashScreen>
           child: FadeTransition(
             opacity: _fadeAnimation,
             child: SizedBox(
-              child: Image.asset('assets/images/image.png'),
               width: 200,
               height: 200,
+              child: Image.asset('assets/images/image.png'),
             ),
           ),
         ));

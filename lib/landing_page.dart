@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:gps_attendance/core/constants/colors.dart';
+import 'package:gps_attendance/drawer.dart';
 import 'package:gps_attendance/features/attendance/presentation/screens/attendance_page.dart';
 import 'package:gps_attendance/features/profile/presentation/screens/profile_screen.dart';
 import 'package:gps_attendance/features/history/presentation/pages/history_page.dart';
@@ -34,7 +35,7 @@ class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(),
+      drawer: AppDrawer(),
       body: pages[selectedPage],
       bottomNavigationBar: NavigationBar(
         backgroundColor: TrackSyncColors.highlightLight,

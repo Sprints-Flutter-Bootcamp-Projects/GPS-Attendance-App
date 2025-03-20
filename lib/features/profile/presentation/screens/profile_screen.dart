@@ -1,12 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gps_attendance/core/dependency_injection/service_locator.dart';
 import 'package:gps_attendance/core/utils/app_colors.dart';
 import 'package:gps_attendance/features/profile/presentation/cubits/user_profile/user_profile_cubit.dart';
 import 'package:gps_attendance/features/profile/presentation/screens/edit_profile.dart';
-import 'package:gps_attendance/widgets/custom_appbar.dart';
-import 'package:gps_attendance/widgets/warnings/snackbar.dart';
+import 'package:gps_attendance/widgets/ui_components/custom_appbar.dart';
+import 'package:gps_attendance/widgets/ui_components/warnings/snackbar.dart';
 
 class ProfileScreen extends StatefulWidget {
   static const String routeName = '/profile_screen';
@@ -17,20 +16,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  Map<String, dynamic>? _userData;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _loadCachedUserData();
-  // }
-
-  // Future<void> _loadCachedUserData() async {
-  //   final cachedData = await SharedPreferencesService().getCachedUserData();
-  //   setState(() {
-  //     _userData = cachedData;
-  //   });
-  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +47,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              sl<FirebaseAuth>().currentUser!.displayName!,
+                              FirebaseAuth.instance.currentUser!.displayName!,
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                           ),
@@ -136,7 +121,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Text(state.workZone),
                 ),
               ],

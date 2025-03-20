@@ -17,6 +17,20 @@ class AttendanceStatusLoaded extends AttendanceStatusState {
   const AttendanceStatusLoaded({required this.attendanceRecord});
 }
 
+class AttendanceStatusUserCheckedIn extends AttendanceStatusState {
+  final String checkInTime;
+
+  const AttendanceStatusUserCheckedIn({required this.checkInTime});
+}
+
+class AttendanceStatusUserCheckedOut extends AttendanceStatusState {
+  final String checkInTime;
+  final String checkOutTime;
+
+  const AttendanceStatusUserCheckedOut(
+      {required this.checkInTime, required this.checkOutTime});
+}
+
 class AttendanceStatusUserIsAbsent extends AttendanceStatusState {}
 
 class AttendanceStatusError extends AttendanceStatusState {

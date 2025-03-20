@@ -4,7 +4,7 @@ import 'package:gps_attendance/features/authentication/presentation/screens/logi
 import 'package:gps_attendance/features/onboarding/presentation/screens/onboarding1.dart';
 import 'package:gps_attendance/features/onboarding/presentation/screens/onboarding2.dart';
 import 'package:gps_attendance/features/onboarding/presentation/screens/onboarding3.dart';
-import 'package:gps_attendance/widgets/nice_button.dart';
+import 'package:gps_attendance/widgets/ui_components/nice_button.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
@@ -42,10 +42,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   title: 'Key Features',
                 ),
                 OnBoarding3(
-                  image: 'assets/images/onboarding3.png',
-                  title: 'Welcome to TrackSync',
-                  description: 'Your Workforce Management Solution'
-                ),
+                    image: 'assets/images/onboarding3.png',
+                    title: 'Welcome to TrackSync',
+                    description: 'Your Workforce Management Solution'),
               ],
             ),
           ),
@@ -69,21 +68,24 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               }),
             ),
           ),
-          niceButton(
-            title: _currentIndex == 2 ? 'Get Started' : 'Next',
-            onTap: () {
-              if (_currentIndex == 2) {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()),
-                );
-              } else {
-                _pageController.nextPage(
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.easeInOut,
-                );
-              }
-            },
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: niceButton(
+              title: _currentIndex == 2 ? 'Get Started' : 'Next',
+              onTap: () {
+                if (_currentIndex == 2) {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                  );
+                } else {
+                  _pageController.nextPage(
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeInOut,
+                  );
+                }
+              },
+            ),
           ),
         ],
       ),

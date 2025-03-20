@@ -5,10 +5,10 @@ class PageDesc extends StatelessWidget {
   final String description;
 
   const PageDesc({
-    Key? key,
+    super.key,
     required this.title,
     required this.description,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,8 @@ class PageDesc extends StatelessWidget {
         children: [
           Text(
             title,
-            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: Colors.black),
+            style: const TextStyle(
+                fontSize: 24, fontWeight: FontWeight.w900, color: Colors.black),
           ),
           const SizedBox(height: 4),
           Text(

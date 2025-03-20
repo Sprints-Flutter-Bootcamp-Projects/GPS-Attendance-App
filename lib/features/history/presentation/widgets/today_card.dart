@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:gps_attendance/widgets/chip.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gps_attendance/core/cubits/attendance_status/attendancestatus_cubit.dart';
+import 'package:gps_attendance/core/dependency_injection/service_locator.dart';
+import 'package:gps_attendance/features/history/presentation/cubits/today_stats_cubit.dart';
+import 'package:gps_attendance/widgets/ui_components/chip.dart';
+import 'package:intl/intl.dart';
 
 class TodayCard extends StatelessWidget {
   const TodayCard({super.key});
@@ -20,44 +25,92 @@ class TodayCard extends StatelessWidget {
                   color: Theme.of(context).colorScheme.primary, width: 1.5),
               borderRadius: BorderRadius.circular(16),
             ),
-            child: Column(
-              spacing: 4,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("Thursday, March 25, 2025",
-                    style: Theme.of(context).textTheme.displaySmall),
-                SizedBox(height: 4),
-                Row(
-                  children: [
-                    CustomChip(text: "Software Development"),
-                  ],
+            child: MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                  create: (context) => sl<TodayStatsCubit>(),
                 ),
-                CheckInOutRow(label: "Check-In", time: "09:00 AM"),
-                CheckInOutRow(
-                  label: "Check-Out",
-                  time: "06:00 PM",
-                  isCheckOut: true,
+                BlocProvider(
+                  create: (context) => sl<AttendanceStatusCubit>(),
                 ),
-                Row(
-                  spacing: 4,
-                  children: [
-                    CustomChip(
-                      text: "Total Hours \u2022 9H",
-                      backgroundColor: Theme.of(context).splashColor,
-                    ),
-                    CustomChip(
-                        text: "Overtime \u2022 1H",
-                        backgroundColor: Theme.of(context).splashColor),
-                  ],
-                ),
-                Row(
-                  children: [
-                    CustomChip(
-                        text: "Status \u2022 Regular Hours",
-                        backgroundColor: Theme.of(context).splashColor),
-                  ],
-                )
               ],
+              child: BlocBuilder<AttendanceStatusCubit, AttendanceStatusState>(
+                builder: (context, attendanceState) {
+                  return Column(
+                    spacing: 4,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(DateFormat.yMMMEd().format(DateTime.now()),
+                          style: Theme.of(context).textTheme.displaySmall),
+                      Row(
+                        children: [
+                          CustomChip(text: "Software Development"),
+                        ],
+                      ),
+                      attendanceState is AttendanceStatusUserCheckedOut
+                          ? Column(
+                              children: [
+                                CheckInOutRow(
+                                    label: "Check-In",
+                                    time: attendanceState.checkInTime),
+                                CheckInOutRow(
+                                  label: "Check-Out",
+                                  time: attendanceState.checkOutTime,
+                                  isCheckOut: true,
+                                ),
+                              ],
+                            )
+                          : attendanceState is AttendanceStatusUserCheckedIn
+                              ? CheckInOutRow(
+                                  label: "Check-In",
+                                  time: attendanceState.checkInTime)
+                              : SizedBox.shrink(),
+                      BlocBuilder<TodayStatsCubit, TodayStatsState>(
+                        builder: (context, todayState) {
+                          if (todayState is TodayStatsLoading) {
+                            return Center(child: CircularProgressIndicator());
+                          } else if (todayState is TodayStatsLoaded) {
+                            return Column(
+                              spacing: 5,
+                              children: [
+                                Row(
+                                  spacing: 4,
+                                  children: [
+                                    CustomChip(
+                                      text:
+                                          "Total Hours \u2022 ${todayState.totalHours}",
+                                      backgroundColor:
+                                          Theme.of(context).splashColor,
+                                    ),
+                                    CustomChip(
+                                        text:
+                                            "Overtime \u2022 ${todayState.overtime}",
+                                        backgroundColor:
+                                            Theme.of(context).splashColor),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    CustomChip(
+                                        text: todayState.isRegular
+                                            ? "Status \u2022 Regular Hours"
+                                            : "Status \u2022 Overtime",
+                                        backgroundColor:
+                                            Theme.of(context).splashColor),
+                                  ],
+                                ),
+                              ],
+                            );
+                          } else {
+                            return Center(
+                                child: Text('Failed to get Today\'s Stats'));
+                          }
+                        },
+                      )
+                    ],
+                  );
+                },
+              ),
             ),
           )
         ],

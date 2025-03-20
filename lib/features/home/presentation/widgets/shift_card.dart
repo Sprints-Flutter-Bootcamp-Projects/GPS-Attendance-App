@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gps_attendance/features/home/presentation/widgets/dot_text.dart';
-import 'package:gps_attendance/features/home/presentation/widgets/state_row.dart';
+import 'package:intl/intl.dart';
 import 'colored_card.dart'; // Import the reusable widget
 
 class ShiftDetailsCard extends StatelessWidget {
@@ -8,6 +8,8 @@ class ShiftDetailsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String tomorrow =
+        DateFormat('EEEE').format(DateTime.now().add(Duration(days: 1)));
     return ColoredCard(
       borderColor: Colors.orange.shade300,
       backgroundColor: Colors.orange.shade50,
@@ -18,7 +20,7 @@ class ShiftDetailsCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               _buildShiftColumn("Current Shift", "08:00 AM - 05:00 PM"),
-              _buildShiftColumn("Upcoming Shift", "Thursday, 08:00 AM"),
+              _buildShiftColumn("Upcoming Shift", "$tomorrow,\n08:00 AM"),
             ],
           ),
           const SizedBox(height: 10),
@@ -46,10 +48,10 @@ class ShiftDetailsCard extends StatelessWidget {
                 OutlinedButton(
                   onPressed: null,
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
+                    backgroundColor: WidgetStateProperty.all<Color>(
                       Colors.teal,
                     ),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(24.0),
                       ),

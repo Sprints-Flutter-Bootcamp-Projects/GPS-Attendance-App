@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class AttendanceStatus extends StatelessWidget {
   final String status;
 
-  const AttendanceStatus({Key? key, required this.status}) : super(key: key);
+  const AttendanceStatus({super.key, required this.status});
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +33,8 @@ class AttendanceStatus extends StatelessWidget {
         return Colors.green;
       case "checked out":
         return Colors.red;
-      case "pending":
-        return Colors.orange;
       default:
-        return Colors.black;
+        return Colors.orange;
     }
   }
 }

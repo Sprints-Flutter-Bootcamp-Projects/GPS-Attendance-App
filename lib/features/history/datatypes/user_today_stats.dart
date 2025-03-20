@@ -1,6 +1,6 @@
 class UserTodayStatsResult {
-  final int totalHours;
-  final int overTime;
+  final Duration totalHours;
+  final Duration overTime;
 
   UserTodayStatsResult({
     required this.totalHours,

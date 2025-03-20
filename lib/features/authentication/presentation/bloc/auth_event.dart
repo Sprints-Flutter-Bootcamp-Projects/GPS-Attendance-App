@@ -8,7 +8,6 @@ abstract class AuthEvent extends Equatable {
 class SignUpRequested extends AuthEvent {
   final String email;
   final String password;
-
   final String fullName;
 
   SignUpRequested(
@@ -18,16 +17,19 @@ class SignUpRequested extends AuthEvent {
   List<Object> get props => [email, password];
 }
 
-class SaveUserDetailsEvent extends AuthEvent {
-  final String company;
-  final String department;
-  final String title;
-  final String? imageUrl;
+class LoginRequested extends AuthEvent {
+  final String email;
+  final String password;
 
-  SaveUserDetailsEvent({
-    required this.company,
-    required this.department,
-    required this.title,
-    this.imageUrl,
-  });
+  LoginRequested({required this.email, required this.password});
+}
+
+class RestoreAuthRequested extends AuthEvent {
+  @override
+  List<Object> get props => [];
+}
+
+class LogoutRequested extends AuthEvent {
+  @override
+  List<Object> get props => [];
 }

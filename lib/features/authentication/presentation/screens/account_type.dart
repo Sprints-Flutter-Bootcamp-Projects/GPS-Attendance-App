@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gps_attendance/features/authentication/presentation/screens/signup_screen.dart';
 import 'package:gps_attendance/features/authentication/presentation/widgets/account_card.dart';
-import 'package:gps_attendance/widgets/custom_appbar.dart';
+import 'package:gps_attendance/widgets/ui_components/custom_appbar.dart';
 
 class AccountsPage extends StatelessWidget {
   const AccountsPage({super.key});

@@ -10,3 +10,5 @@ abstract class AttendanceEvent extends Equatable {
 class CheckIn extends AttendanceEvent {}
 
 class CheckOut extends AttendanceEvent {}
+
+class InitializeWorkZone extends AttendanceEvent {}

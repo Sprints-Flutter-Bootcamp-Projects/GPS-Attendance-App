@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:gps_attendance/core/models/user_model.dart';
+import 'package:gps_attendance/core/models/user/user_model.dart';
 
 class AuthService {
   static final AuthService _instance = AuthService._internal();
@@ -10,15 +10,26 @@ class AuthService {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<void> signIn(String email, String password) async {
+  Future<UserModel> signIn(
+      {required String email, required String password}) async {
     try {
       UserCredential userCredential = await auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      print('User signed in: ${userCredential.user!.uid}');
-    } on FirebaseAuthException catch (e) {
-      print('Error: ${e.message}');
+      // Get user data from Firestore
+      final userDoc = await _firestore
+          .collection('users')
+          .doc(userCredential.user!.uid)
+          .get();
+
+      if (!userDoc.exists) {
+        throw 'User document not found';
+      }
+
+      return UserModel.fromFirestore(userDoc);
+    } catch (e) {
+      rethrow;
     }
   }
 
@@ -38,18 +49,20 @@ class AuthService {
       await _firestore.collection('users').doc(userCredential.user!.uid).set({
         'email': email,
         'fullName': fullName,
-        'department': 'Not Assigned',
+        'department': 'R&D',
         'role': 'user',
         'workZoneId': 'workZone1',
+        'title': 'Flutter Developer'
       });
       if (userCredential.user != null) {
         return UserModel(
           email: email,
           fullName: fullName,
-          department: 'Not Assigned',
+          department: 'R&D',
           id: userCredential.user!.uid,
           role: 'user',
           workZoneId: 'workZone1',
+          title: 'Flutter Developer',
         );
       } else {
         return null;

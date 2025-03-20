@@ -1,0 +1,20 @@
+{
+  "buildFiles": [
+    "/home/arch/Development/flutter/packages/flutter_tools/gradle/src/main/groovy/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/home/arch/Android/Sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/home/arch/Desktop/Sprints_Flutter/Graduation_Project/Branches/main_test/GPS-Attendance-App/android/app/.cxx/Debug/282s486j/x86_64",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/home/arch/Android/Sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/home/arch/Desktop/Sprints_Flutter/Graduation_Project/Branches/main_test/GPS-Attendance-App/android/app/.cxx/Debug/282s486j/x86_64",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {}
+}

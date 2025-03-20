@@ -59,6 +59,7 @@ class LocationService {
   Future<bool> _isWithinGeofence(double userLat, double userLng,
       double workZoneLat, double workZoneLng) async {
     final settings = await FirestoreService().getGeofenceSettings();
+
     double radius = settings.radius;
 
     return ((workZoneLat - userLat).abs() < radius &&
@@ -91,7 +92,8 @@ class LocationService {
           {
             'checkIn': FieldValue.serverTimestamp(),
             'userId': user.uid,
-            'status': 'checked-in'
+            'status': 'Checked In',
+            'date': _dateFormatter.format(DateTime.now())
           },
           SetOptions(merge: true),
         );
@@ -129,7 +131,7 @@ class LocationService {
 
         transaction.update(todayDoc, {
           'checkOut': FieldValue.serverTimestamp(),
-          'status': 'checked-out'
+          'status': 'Checked Out'
         });
 
         return true;

@@ -6,6 +6,15 @@
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
 	<string>Gps Attendance</string>
+	
+	<key>NSLocationWhenInUseUsageDescription</key>
+    <string>This app needs access to your location to track attendance via GPS.</string>
+
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>This app needs background location access to track attendance.</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>This app needs background location access to track attendance.</string>
+
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
