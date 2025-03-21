@@ -86,7 +86,7 @@ Here are some snapshots of the application interface:
 
 ## 📽️ Video Demo
 A video walkthrough showcasing the app’s core functionalities is available: 
-📌 **Demo Video:** [Link to Video](#) *(Replace with actual link)*
+📌 **Demo Video:** [[Link to Video](https://drive.google.com/file/d/13rrHQZPvTE4dlmxH8SgnBbfOK1TDERrQ/view?usp=sharing)](#) *(Replace with actual link)*
 
 ### Splash screen and login
 
