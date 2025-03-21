@@ -114,7 +114,7 @@ A video walkthrough showcasing the app’s core functionalities is available:
 ### **Development Environment**
 1. Clone the repository:
    ```sh
-   git clone https://github.com/your-repo-link.git
+   git clone https://github.com/Sprints-Flutter-Bootcamp-Projects/GPS-Attendance-App.git
    ```
 2. Open the project in **Android Studio**, **VS Code**, or **Xcode**.
 3. Install dependencies:
