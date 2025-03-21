@@ -158,4 +158,4 @@ Implementing this **GPS Attendance System** will significantly enhance operation
 ---
 
 ## 📞 Contact
-For any inquiries or contributions, feel free to reach out via **[Your Email]** or check out our repository on **GitHub**.
+For any inquiries or contributions, feel free to reach out via **[spport@tracksync.com]** or check out our repository on **[GitHub](https://github.com/Sprints-Flutter-Bootcamp-Projects/GPS-Attendance-App.git)**.
