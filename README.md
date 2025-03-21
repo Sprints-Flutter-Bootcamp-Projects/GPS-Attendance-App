@@ -72,7 +72,7 @@ The application supports **multi-language localization**, with translations avai
 
 ## 🎨 UI/UX Design
 The application design is based on a **Figma prototype**, ensuring a modern and user-friendly interface. 
-📌 **Figma Design File:** [[Link to Figma](https://www.figma.com/design/7LhsecbOMxe8J1yfy0jOQ7/GPS-Attendance?node-id=4-17868)](#) *(Replace with actual link)*
+📌 **Figma Design File:** [[Link to Figma](https://www.figma.com/design/7LhsecbOMxe8J1yfy0jOQ7/GPS-Attendance?node-id=4-17868)]
 
 ### 📸 Screenshots of Key Screens
 Here are some snapshots of the application interface:
@@ -86,7 +86,7 @@ Here are some snapshots of the application interface:
 
 ## 📽️ Video Demo
 A video walkthrough showcasing the app’s core functionalities is available: 
-📌 **Demo Video:** [[Link to Video](https://drive.google.com/file/d/13rrHQZPvTE4dlmxH8SgnBbfOK1TDERrQ/view?usp=sharing)](#) *(Replace with actual link)*
+📌 **Demo Video:** [[Link to Video](https://drive.google.com/file/d/13rrHQZPvTE4dlmxH8SgnBbfOK1TDERrQ/view?usp=sharing)]
 
 ### Splash screen and login
 
