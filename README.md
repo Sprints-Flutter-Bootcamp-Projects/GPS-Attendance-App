@@ -94,7 +94,7 @@ Here are some previews of the functionalities
 
   </tr>
   <tr>
-    <td><img src="/readme_data/gifs/1-login.gif" alt="login" width="600"></td>
+    <td><img src="/readme_data/gifs/1-login.gif" alt="login" height="600"></td>
     <td><img src="/readme_data/gifs/2-navbar.gif" alt="navbar" width="600"></td>
   </tr>
 
