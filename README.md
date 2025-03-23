@@ -23,7 +23,7 @@ To develop a **reliable, accurate, and user-friendly GPS-based attendance system
 |------------|-----------------|
 | **Mobile Platform** | Android (6.0+) / iOS (11+) |
 | **Backend Services** | Google Firebase Firestore (Real-time cloud database) |
-| **Development Tools** | Android Studio, VS Code, Xcode |
+| **Development Tools** | Android Studio, VS Code |
 | **Version Control** | GitHub |
 
 ---
@@ -84,17 +84,43 @@ Here are some snapshots of the application interface:
 
 ---
 
-## 📽️ Video Demo
-A video walkthrough showcasing the app’s core functionalities is available: 
+## 📽️ GIFs and Video Demo
+Here are some previews of the functionalities
+
+<table border="1">
+  <tr>
+    <th>Login</th>
+    <th>Navbar</th>
+
+  </tr>
+  <tr>
+    <td><img src="/readme_data/gifs/1-login.gif" alt="login" width="600"></td>
+    <td><img src="/readme_data/gifs/2-navbar.gif" alt="navbar" width="600"></td>
+  </tr>
+
+  <tr>
+    <th>Check-in Fail</th>
+    <th>Admin Update and Check-in</th>
+  </tr>
+  <tr>
+    <td><img src="/readme_data/gifs/3-check in fail.gif" alt="checkin-fail" width="600"></td>
+    <td><img src="/readme_data/gifs/4-admin update and check in.gif" alt="admin-checkin-success" width="600"></td>
+  </tr>
+
+  <tr>
+    <th>Check-out</th>
+    <th>Attendance</th>
+    
+  </tr>
+  <tr>
+    <td><img src="/readme_data/gifs/5-check out.gif" alt="check-out" width="600"></td>
+    <td><img src="/readme_data/gifs/6-attendance.gif" alt="attendance" width="600"></td>
+  </tr>
+</table>
+
+A full video walkthrough of the app’s core functionalities is available here: 
 📌 **Demo Video:** [[Link to Video](https://drive.google.com/file/d/13rrHQZPvTE4dlmxH8SgnBbfOK1TDERrQ/view?usp=sharing)]
 
-### Splash screen and login
-
-### admin settings
-
-### checking in/out
-
----
 
 ## 🚀 Features & Functionalities
 ✔️ **GPS Attendance Recording:** Employees check in/out based on predefined geofences.  
@@ -102,13 +128,12 @@ A video walkthrough showcasing the app’s core functionalities is available:
 ✔️ **Employee Profile Access:** View attendance history, leave balance, and recent check-ins.  
 ✔️ **Admin Dashboard:** Manage employees, review attendance logs, and generate reports.  
 
----
+
 
 ## 🔧 System Requirements
 - **Hardware:** GPS-enabled smartphone (Android 6.0+ / iOS 11+)
 - **Software:** Requires location permissions & internet access for cloud sync
 
----
 
 ## 🛠 Environment Setup
 ### **Development Environment**
