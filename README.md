@@ -95,7 +95,7 @@ Here are some previews of the functionalities
   </tr>
   <tr>
     <td><img src="/readme_data/gifs/1-login.gif" alt="login" height="600"></td>
-    <td><img src="/readme_data/gifs/2-navbar.gif" alt="navbar" width="600"></td>
+    <td><img src="/readme_data/gifs/2-navbar.gif" alt="navbar" height="600"></td>
   </tr>
 
   <tr>
@@ -103,8 +103,8 @@ Here are some previews of the functionalities
     <th>Admin Update and Check-in</th>
   </tr>
   <tr>
-    <td><img src="/readme_data/gifs/3-check in fail.gif" alt="checkin-fail" width="600"></td>
-    <td><img src="/readme_data/gifs/4-admin update and check in.gif" alt="admin-checkin-success" width="600"></td>
+    <td><img src="/readme_data/gifs/3-check in fail.gif" alt="checkin-fail" height="600"></td>
+    <td><img src="/readme_data/gifs/4-admin update and check in.gif" alt="admin-checkin-success" height="600"></td>
   </tr>
 
   <tr>
@@ -113,8 +113,8 @@ Here are some previews of the functionalities
     
   </tr>
   <tr>
-    <td><img src="/readme_data/gifs/5-check out.gif" alt="check-out" width="600"></td>
-    <td><img src="/readme_data/gifs/6-attendance.gif" alt="attendance" width="600"></td>
+    <td><img src="/readme_data/gifs/5-check out.gif" alt="check-out" height="600"></td>
+    <td><img src="/readme_data/gifs/6-attendance.gif" alt="attendance" height="600"></td>
   </tr>
 </table>
 
