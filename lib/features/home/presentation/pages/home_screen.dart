@@ -15,6 +15,7 @@ import 'package:gps_attendance/features/home/presentation/widgets/home_appbar.da
 import 'package:gps_attendance/features/home/presentation/widgets/quick_states.dart';
 import 'package:gps_attendance/features/home/presentation/widgets/shift_card.dart';
 import 'package:gps_attendance/features/profile/presentation/cubits/user_profile/user_profile_cubit.dart';
+import 'package:gps_attendance/widgets/common_widgets/attendance_history_list.dart';
 import 'package:gps_attendance/widgets/ui_components/title_desc.dart';
 import 'package:gps_attendance/widgets/ui_components/warnings/snackbar.dart';
 
@@ -145,7 +146,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ColorOutBtn(
                                   color: Colors.orange,
                                   text: "View Details",
-                                  onTap: () {},
+                                  onTap: () {
+                                    final FirebaseAuth auth =
+                                        sl<FirebaseAuth>();
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) {
+                                          return UserAttendanceHistory(
+                                            fullName:
+                                                auth.currentUser!.displayName,
+                                            userId: auth.currentUser!.uid,
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  },
                                 ),
                               ],
                             ),

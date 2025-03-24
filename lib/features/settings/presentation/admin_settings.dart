@@ -33,50 +33,58 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                 showDialog(
                   context: context,
                   builder: (context) {
-                    return AlertDialog(
-                      title: const Text('Assign Roles'),
-                      content: SizedBox(
-                        width: double.maxFinite,
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: users.length,
-                          itemBuilder: (context, index) {
-                            final user = users[index];
-                            return ListTile(
-                              title: Text(user['email']),
-                              subtitle: Text('Current Role: ${user['role']}'),
-                              trailing: DropdownButton<String>(
-                                value: user['role'],
-                                onChanged: (String? newValue) {
-                                  if (newValue != null) {
-                                    authService.assignRole(
-                                        user['uid'], newValue);
-                                  }
-                                },
-                                items: <String>[
-                                  'user',
-                                  'moderator',
-                                  'admin'
-                                ].map<DropdownMenuItem<String>>((String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(value),
-                                  );
-                                }).toList(),
-                              ),
-                            );
-                          },
+                    return StatefulBuilder(builder: (context, setStateDialog) {
+                      return AlertDialog(
+                        title: const Text('Assign Roles'),
+                        content: SizedBox(
+                          width: double.maxFinite,
+                          child: ListView.separated(
+                            separatorBuilder: (context, index) =>
+                                Divider(color: Theme.of(context).primaryColor),
+                            shrinkWrap: true,
+                            itemCount: users.length,
+                            itemBuilder: (context, index) {
+                              final user = users[index];
+                              return ListTile(
+                                title: Text(
+                                  user['email'],
+                                  style: TextStyle(fontSize: 15),
+                                ),
+                                subtitle: DropdownButton<String>(
+                                  value: user['role'],
+                                  onChanged: (String? newValue) {
+                                    if (newValue != null) {
+                                      authService.assignRole(
+                                          user['uid'], newValue);
+
+                                      setStateDialog(() {
+                                        user['role'] = newValue;
+                                      });
+                                    }
+                                  },
+                                  items: <String>['user', 'moderator', 'admin']
+                                      .map<DropdownMenuItem<String>>(
+                                          (String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
+                                ),
+                              );
+                            },
+                          ),
                         ),
-                      ),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text('Close'),
-                        ),
-                      ],
-                    );
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text('Close'),
+                          ),
+                        ],
+                      );
+                    });
                   },
                 );
               }
@@ -147,6 +155,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                   context: context,
                   builder: (context) {
                     final nameController = TextEditingController();
+                    final idController = TextEditingController();
                     final latController = TextEditingController();
                     final lngController = TextEditingController();
 
@@ -159,6 +168,11 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                             controller: nameController,
                             decoration: const InputDecoration(
                                 labelText: 'Work Zone Name'),
+                          ),
+                          TextField(
+                            controller: idController,
+                            decoration: const InputDecoration(
+                                labelText: 'Work Zone Id'),
                           ),
                           TextField(
                             controller: latController,
@@ -182,9 +196,11 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                         TextButton(
                           onPressed: () async {
                             final workZone = WorkZone(
-                              id: DateTime.now()
-                                  .millisecondsSinceEpoch
-                                  .toString(),
+                              id: idController.text.isEmpty
+                                  ? DateTime.now()
+                                      .millisecondsSinceEpoch
+                                      .toString()
+                                  : idController.text,
                               name: nameController.text,
                               latitude: double.parse(latController.text),
                               longitude: double.parse(lngController.text),
@@ -203,6 +219,77 @@ class _SettingsWidgetState extends State<SettingsWidget> {
               }
             },
             child: const Text('Add Work Zone'),
+          ),
+          const SizedBox(height: 20),
+          const Text('Manage Users',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          FilledButton(
+            onPressed: () async {
+              final users = await firestoreService.getAllUsers();
+              final workZones = await firestoreService.getWorkZones();
+              if (context.mounted) {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return StatefulBuilder(
+                      builder: (context, setStateDialog) {
+                        return AlertDialog(
+                          title: const Text('Assign Work Zones'),
+                          content: SizedBox(
+                            width: double.maxFinite,
+                            child: ListView.separated(
+                              separatorBuilder: (context, index) => Divider(
+                                  color: Theme.of(context).primaryColor),
+                              shrinkWrap: true,
+                              itemCount: users.length,
+                              itemBuilder: (context, index) {
+                                final user = users[index];
+                                final userWorkZoneId = user['workZoneId'];
+
+                                return ListTile(
+                                  title: Text(
+                                    user['email'],
+                                    style: TextStyle(fontSize: 15),
+                                  ),
+                                  subtitle: DropdownButton<String>(
+                                    value: userWorkZoneId,
+                                    onChanged: (String? newId) {
+                                      if (newId != null) {
+                                        firestoreService.assignWorkZoneToUser(
+                                            user['uid'], newId);
+                                        // Update local UI state
+                                        setStateDialog(() {
+                                          user['workZoneId'] = newId;
+                                        });
+                                      }
+                                    },
+                                    items: workZones
+                                        .map<DropdownMenuItem<String>>(
+                                            (WorkZone wz) {
+                                      return DropdownMenuItem<String>(
+                                        value: wz.id,
+                                        child: Text(wz.name),
+                                      );
+                                    }).toList(),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: const Text('Close'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                );
+              }
+            },
+            child: const Text('Assign Work Zones'),
           ),
         ],
       ),

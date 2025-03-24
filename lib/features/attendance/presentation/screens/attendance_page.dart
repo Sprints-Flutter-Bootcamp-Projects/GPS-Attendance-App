@@ -154,11 +154,11 @@ class _AttendancePageState extends State<AttendancePage> {
                   ),
                   markers: {
                     Marker(
-                      markerId: MarkerId('selected-location'),
+                      markerId: MarkerId('workZone-location'),
                       position: LatLng(workZoneLat, workZoneLng),
                     ),
                     Marker(
-                      markerId: MarkerId('selected-location'),
+                      markerId: MarkerId('user-location'),
                       position: _userLocation,
                     ),
                   },
@@ -173,76 +173,80 @@ class _AttendancePageState extends State<AttendancePage> {
               bottomSheet: _isMapMoving
                   ? SizedBox.shrink()
                   : SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.3,
                       width: MediaQuery.of(context).size.width,
-                      child: Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          spacing: 5,
-                          children: [
-                            Text(
-                              workZoneName,
-                              style: Theme.of(context).textTheme.displayMedium,
-                            ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.3,
-                              child: state is AttendanceEmployeeIsInArea
-                                  ? AreaStatusChip(
-                                      userWithinAreaStatus:
-                                          UserWithinAreaStatus.withinArea,
-                                    )
-                                  : state is AttendanceEmployeeIsNotInArea
-                                      ? AreaStatusChip(
-                                          userWithinAreaStatus:
-                                              UserWithinAreaStatus.outsideArea,
-                                        )
-                                      : AreaStatusChip(
-                                          userWithinAreaStatus:
-                                              UserWithinAreaStatus.pending,
-                                        ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 7),
-                              child: Text(
-                                'CURRENT SHIFT TIME\n 9:00 AM - 5:00 PM',
-                                style: Theme.of(context).textTheme.bodySmall,
+                      child: IntrinsicHeight(
+                        child: Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            spacing: 5,
+                            children: [
+                              Text(
+                                workZoneName,
+                                style:
+                                    Theme.of(context).textTheme.displayMedium,
                               ),
-                            ),
-                            Row(
-                              spacing: 10,
-                              children: [
-                                Expanded(
-                                  child: state is AttendanceCheckInLoading
-                                      ? Center(
-                                          child: CircularProgressIndicator())
-                                      : TrackSyncButton(
-                                          text: 'Check In',
-                                          onPressed: () {
-                                            context
-                                                .read<AttendanceBloc>()
-                                                .add(CheckIn());
-                                          },
-                                        ),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.3,
+                                child: state is AttendanceEmployeeIsInArea
+                                    ? AreaStatusChip(
+                                        userWithinAreaStatus:
+                                            UserWithinAreaStatus.withinArea,
+                                      )
+                                    : state is AttendanceEmployeeIsNotInArea
+                                        ? AreaStatusChip(
+                                            userWithinAreaStatus:
+                                                UserWithinAreaStatus
+                                                    .outsideArea,
+                                          )
+                                        : AreaStatusChip(
+                                            userWithinAreaStatus:
+                                                UserWithinAreaStatus.pending,
+                                          ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 7),
+                                child: Text(
+                                  'CURRENT SHIFT TIME\n 9:00 AM - 5:00 PM',
+                                  style: Theme.of(context).textTheme.bodySmall,
                                 ),
-                                Expanded(
-                                  child: state is AttendanceCheckOutLoading
-                                      ? Center(
-                                          child: CircularProgressIndicator())
-                                      : TrackSyncButton(
-                                          text: 'Check Out',
-                                          backgroundColor:
-                                              TrackSyncColors.pending,
-                                          onPressed: () {
-                                            context
-                                                .read<AttendanceBloc>()
-                                                .add(CheckOut());
-                                          },
-                                        ),
-                                ),
-                              ],
-                            )
-                          ],
+                              ),
+                              Row(
+                                spacing: 10,
+                                children: [
+                                  Expanded(
+                                    child: state is AttendanceCheckInLoading
+                                        ? Center(
+                                            child: CircularProgressIndicator())
+                                        : TrackSyncButton(
+                                            text: 'Check In',
+                                            onPressed: () {
+                                              context
+                                                  .read<AttendanceBloc>()
+                                                  .add(CheckIn());
+                                            },
+                                          ),
+                                  ),
+                                  Expanded(
+                                    child: state is AttendanceCheckOutLoading
+                                        ? Center(
+                                            child: CircularProgressIndicator())
+                                        : TrackSyncButton(
+                                            text: 'Check Out',
+                                            backgroundColor:
+                                                TrackSyncColors.pending,
+                                            onPressed: () {
+                                              context
+                                                  .read<AttendanceBloc>()
+                                                  .add(CheckOut());
+                                            },
+                                          ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),

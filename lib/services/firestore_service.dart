@@ -91,6 +91,7 @@ class FirestoreService {
         'uid': doc.id,
         'email': doc['email'],
         'role': doc['role'],
+        'workZoneId': doc['workZoneId'],
       };
     }).toList();
   }
