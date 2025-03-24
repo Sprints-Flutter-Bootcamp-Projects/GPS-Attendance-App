@@ -1,10 +1,10 @@
-### (reademe file still not finished)
-
 # GPS Attendance System
+
+### This project was developed as part of the Flutter Bootcamp by Sprints.
+<img src="/readme_data/pics/sprints.png" alt="sprints" height="100">
 
 ## 📌 Project Overview
 The **GPS Attendance System** is designed to automate employee attendance tracking using geolocation technology. By verifying employee presence within designated work zones, this system minimizes errors and administrative overhead, ensuring a seamless and efficient attendance management process.
-
 
 
 ## 🎯 Objectives
@@ -16,7 +16,6 @@ To develop a **reliable, accurate, and user-friendly GPS-based attendance system
 ✔️ **Real-time Synchronization:** Ensure instant data updates across all devices.
 ✔️ **User-Friendly Interface:** Provide an intuitive experience for employees and administrators.
 
----
 
 ## 🛠️ Technology Stack
 | Component  | Technology Used  |
@@ -26,7 +25,6 @@ To develop a **reliable, accurate, and user-friendly GPS-based attendance system
 | **Development Tools** | Android Studio, VS Code |
 | **Version Control** | GitHub |
 
----
 
 ## 📚 Dependencies & Libraries
 - **State Management:** `flutter_bloc`
@@ -71,18 +69,17 @@ The application supports **multi-language localization**, with translations avai
 ---
 
 ## 🎨 UI/UX Design
-The application design is based on a **Figma prototype**, ensuring a modern and user-friendly interface. 
-📌 **Figma Design File:** [[Link to Figma](https://www.figma.com/design/7LhsecbOMxe8J1yfy0jOQ7/GPS-Attendance?node-id=4-17868)]
+The application design is based on a **Figma prototype**, ensuring a modern and user-friendly interface. <br>
+📌 **Figma Design File:** [[Figma Link](https://www.figma.com/design/7LhsecbOMxe8J1yfy0jOQ7/GPS-Attendance?node-id=4-17868)]
 
-### 📸 Screenshots of Key Screens
+<!-- ### 📸 Screenshots of Key Screens
 Here are some snapshots of the application interface:
 1. **Login Screen**
 2. **Dashboard**
 3. **Attendance Tracking Page**
 4. **Profile & Settings**
-5. **Admin Panel**
+5. **Admin Panel** -->
 
----
 
 ## 📽️ GIFs and Video Demo
 Here are some previews of the functionalities
@@ -152,10 +149,10 @@ A full video walkthrough of the app’s core functionalities is available here:
 - Firebase Test Lab for simulated environments
 - Physical device testing to ensure cross-platform compatibility
 
----
 
-## 👥 Team Members
-👨‍💻 We are 6 Flutter Developers & Engineers collaborating together on the project
+
+## 👥 THE TEAM
+### 👨‍💻 We are 6 Flutter Developers & Engineers collaborating together on the project
 1. Mohamed Magdy
 2. Mohamed Matar
 3. Khaled Mohamed
@@ -163,24 +160,20 @@ A full video walkthrough of the app’s core functionalities is available here:
 5. Hana Essam
 6. Gina Ezzat
 
----
+
 
 ## 📅 Project Timeline
 ⏳ Estimated Duration: **10-14 Days**
 
----
 
 ## 📦 Deliverables
 📄 **Documentation:** System design, code documentation, and user manuals.  
-📂 **Application Files:** Final app files, source code, and repository access.
+📂 **Application Files:** Final app files, source code, and repository access. <br>
 📽️ **Demo Video & Screenshots:** Walkthrough of app functionalities.
 
----
 
 ## 📌 Conclusion
-Implementing this **GPS Attendance System** will significantly enhance operational efficiency at **[Company Name]** by automating attendance tracking, reducing manual errors, and providing accurate, real-time attendance data.
-
----
+Implementing this **GPS Attendance System** will significantly enhance operational efficiency for the companies by automating attendance tracking, reducing manual errors, and providing accurate, real-time attendance data.
 
 ## 📞 Contact
-For any inquiries or contributions, feel free to reach out via **[spport@tracksync.com]** or check out our repository on **[GitHub](https://github.com/Sprints-Flutter-Bootcamp-Projects/GPS-Attendance-App.git)**.
+For any inquiries or contributions, feel free to reach out to us or check out our repository on **[GitHub](https://github.com/Sprints-Flutter-Bootcamp-Projects/GPS-Attendance-App.git)**.
