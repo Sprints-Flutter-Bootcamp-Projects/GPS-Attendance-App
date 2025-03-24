@@ -12,9 +12,9 @@ The **GPS Attendance System** is designed to automate employee attendance tracki
 To develop a **reliable, accurate, and user-friendly GPS-based attendance system** that enhances efficiency in recording employee attendance.
 
 ### **Specific Objectives:**
-✔️ **Automated Attendance Tracking:** Record attendance based on GPS location.
-✔️ **Real-time Synchronization:** Ensure instant data updates across all devices.
-✔️ **User-Friendly Interface:** Provide an intuitive experience for employees and administrators.
+✔️ **Automated Attendance Tracking:** Record attendance based on GPS location. <br>
+✔️ **Real-time Synchronization:** Ensure instant data updates across all devices.<br>
+✔️ **User-Friendly Interface:** Provide an intuitive experience for employees and administrators. <br>
 
 
 ## 🛠️ Technology Stack
