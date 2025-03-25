@@ -167,7 +167,7 @@ A full video walkthrough of the app’s core functionalities is available here:
 
 
 ## 📦 Deliverables
-📄 **[Documentation][https://docs.google.com/document/d/19IU8-McwE5Lvbwc0yP110zk0nJP3DU3j/edit]**: System design, code documentation, and user manuals.  
+📄 **[Documentation](https://docs.google.com/document/d/19IU8-McwE5Lvbwc0yP110zk0nJP3DU3j/edit)**: System design, code documentation, and user manuals.  
 📂 **Application Files:** Final app files, source code, and repository access. <br>
 📽️ **Demo Video & Screenshots:** Walkthrough of app functionalities.
 
